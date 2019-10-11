@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{D3BE35D9-16C8-4E8D-9848-669E9C77ABB6}</ProjectGuid>
+    <RootNamespace>GraphicsGameFramework</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(ProjectDir)\Dependencies\assimp;$(ProjectDir)\Dependencies\freeglut;$(ProjectDir)\Dependencies\glew;$(ProjectDir)\Dependencies\soil;$(ProjectDir)\Dependencies\glm;$(ProjectDir)\Dependencies\freetype;$(ProjectDir)\Dependencies;$(ProjectDir)\Dependencies\fmod;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)\Dependencies\assimp;$(ProjectDir)\Dependencies\fmod;$(ProjectDir)\Dependencies\freeglut;$(ProjectDir)\Dependencies\glew;$(ProjectDir)\Dependencies\glm;$(ProjectDir)\Dependencies\soil;$(ProjectDir)\Dependencies;$(ProjectDir)\Dependencies\freetype;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>$(ProjectDir)\Dependencies\assimp;$(ProjectDir)\Dependencies\freeglut;$(ProjectDir)\Dependencies\glew;$(ProjectDir)\Dependencies\soil;$(ProjectDir)\Dependencies\glm;$(ProjectDir)\Dependencies\freetype;$(ProjectDir)\Dependencies;$(ProjectDir)\Dependencies\fmod;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)\Dependencies\assimp;$(ProjectDir)\Dependencies\fmod;$(ProjectDir)\Dependencies\freeglut;$(ProjectDir)\Dependencies\glew;$(ProjectDir)\Dependencies\glm;$(ProjectDir)\Dependencies\soil;$(ProjectDir)\Dependencies;$(ProjectDir)\Dependencies\freetype;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(ProjectDir)\Dependencies\assimp;$(ProjectDir)\Dependencies\freeglut;$(ProjectDir)\Dependencies\glew;$(ProjectDir)\Dependencies\soil;$(ProjectDir)\Dependencies\glm;$(ProjectDir)\Dependencies\freetype;$(ProjectDir)\Dependencies;$(ProjectDir)\Dependencies\fmod;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)\Dependencies\assimp;$(ProjectDir)\Dependencies\fmod;$(ProjectDir)\Dependencies\freeglut;$(ProjectDir)\Dependencies\glew;$(ProjectDir)\Dependencies\glm;$(ProjectDir)\Dependencies\soil;$(ProjectDir)\Dependencies;$(ProjectDir)\Dependencies\freetype;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>$(ProjectDir)\Dependencies\assimp;$(ProjectDir)\Dependencies\freeglut;$(ProjectDir)\Dependencies\glew;$(ProjectDir)\Dependencies\soil;$(ProjectDir)\Dependencies\glm;$(ProjectDir)\Dependencies\freetype;$(ProjectDir)\Dependencies;$(ProjectDir)\Dependencies\fmod;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)\Dependencies\assimp;$(ProjectDir)\Dependencies\fmod;$(ProjectDir)\Dependencies\freeglut;$(ProjectDir)\Dependencies\glew;$(ProjectDir)\Dependencies\glm;$(ProjectDir)\Dependencies\soil;$(ProjectDir)\Dependencies;$(ProjectDir)\Dependencies\freetype;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;freeglut.lib;SOIL.lib;fmod_vc.lib;freetype.lib;assimp-vc130-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;freeglut.lib;SOIL.lib;fmod_vc.lib;freetype.lib;assimp-vc130-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;freeglut.lib;SOIL.lib;fmod_vc.lib;freetype.lib;assimp-vc130-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;freeglut.lib;SOIL.lib;fmod_vc.lib;freetype.lib;assimp-vc130-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="audio.cpp" />
+    <ClCompile Include="bullet.cpp" />
+    <ClCompile Include="camera.cpp" />
+    <ClCompile Include="cube.cpp" />
+    <ClCompile Include="cubemap.cpp" />
+    <ClCompile Include="enemy.cpp" />
+    <ClCompile Include="enemy1.cpp" />
+    <ClCompile Include="gamemanager.cpp" />
+    <ClCompile Include="geometrymodel.cpp" />
+    <ClCompile Include="inputController.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="object.cpp" />
+    <ClCompile Include="player.cpp" />
+    <ClCompile Include="pyramid.cpp" />
+    <ClCompile Include="quad.cpp" />
+    <ClCompile Include="ShaderLoader_Complete.cpp" />
+    <ClCompile Include="shapes.cpp" />
+    <ClCompile Include="Sphere.cpp" />
+    <ClCompile Include="sphereReflective.cpp" />
+    <ClCompile Include="terrain.cpp" />
+    <ClCompile Include="tessmodel.cpp" />
+    <ClCompile Include="TextLabel.cpp" />
+    <ClCompile Include="Utility.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="audio.h" />
+    <ClInclude Include="bullet.h" />
+    <ClInclude Include="camera.h" />
+    <ClInclude Include="cube.h" />
+    <ClInclude Include="cubemap.h" />
+    <ClInclude Include="enemy.h" />
+    <ClInclude Include="enemy1.h" />
+    <ClInclude Include="gamemanager.h" />
+    <ClInclude Include="geometrymodel.h" />
+    <ClInclude Include="inputController.h" />
+    <ClInclude Include="Model.h" />
+    <ClInclude Include="ModelMesh.h" />
+    <ClInclude Include="object.h" />
+    <ClInclude Include="player.h" />
+    <ClInclude Include="pyramid.h" />
+    <ClInclude Include="quad.h" />
+    <ClInclude Include="ShaderLoader_Complete.h" />
+    <ClInclude Include="shapes.h" />
+    <ClInclude Include="Sphere.h" />
+    <ClInclude Include="sphereReflective.h" />
+    <ClInclude Include="terrain.h" />
+    <ClInclude Include="tessmodel.h" />
+    <ClInclude Include="TextLabel.h" />
+    <ClInclude Include="Utility.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Shaders\simple.frags" />
+    <None Include="Resources\Shaders\simple.verts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Resources\Shaders\text.frags" />
+    <Text Include="Resources\Shaders\text.verts" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

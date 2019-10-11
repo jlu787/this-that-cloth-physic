@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Graphics">
+      <UniqueIdentifier>{0be57630-0c81-4de9-9efb-6cdf5b02669d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics\Shapes">
+      <UniqueIdentifier>{032c50e2-38d2-4bf2-a6f0-580e746a9dc6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics">
+      <UniqueIdentifier>{5061ac10-e61b-477a-987f-012a645c03e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\Shaders">
+      <UniqueIdentifier>{f87b8b95-97c4-4ea6-89d9-334e96bf9a23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\Shapes">
+      <UniqueIdentifier>{79f8db6b-49e9-43de-9665-79e4c677461a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game">
+      <UniqueIdentifier>{a0e71d51-6f92-418e-a43b-3eeed9675cd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Helper">
+      <UniqueIdentifier>{aad91b92-f635-4a6f-8360-12a28aec3021}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game">
+      <UniqueIdentifier>{5b40f18a-c3a4-47fb-a6c8-630cde10eb87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Helper">
+      <UniqueIdentifier>{4c8ef042-7850-442c-b017-6f0d20f1a875}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics\Models">
+      <UniqueIdentifier>{06ea1bf1-5ae4-44b8-93db-ef33c6fc330d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="quad.cpp">
+      <Filter>Source Files\Graphics\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="shapes.cpp">
+      <Filter>Source Files\Graphics\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="pyramid.cpp">
+      <Filter>Source Files\Graphics\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="Sphere.cpp">
+      <Filter>Source Files\Graphics\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="cube.cpp">
+      <Filter>Source Files\Graphics\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="cubemap.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="audio.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="camera.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="gamemanager.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="object.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="sphereReflective.cpp">
+      <Filter>Source Files\Graphics\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderLoader_Complete.cpp">
+      <Filter>Source Files\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="bullet.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="enemy.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="enemy1.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="inputController.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="player.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="TextLabel.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility.cpp">
+      <Filter>Source Files\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="terrain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="geometrymodel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tessmodel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pyramid.h">
+      <Filter>Header Files\Graphics\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="shapes.h">
+      <Filter>Header Files\Graphics\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="quad.h">
+      <Filter>Header Files\Graphics\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="cube.h">
+      <Filter>Header Files\Graphics\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="Sphere.h">
+      <Filter>Header Files\Graphics\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="cubemap.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="sphereReflective.h">
+      <Filter>Header Files\Graphics\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="audio.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="gamemanager.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="object.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="TextLabel.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderLoader_Complete.h">
+      <Filter>Header Files\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility.h">
+      <Filter>Header Files\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Header Files\Graphics\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelMesh.h">
+      <Filter>Header Files\Graphics\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="player.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="inputController.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="bullet.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy1.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="terrain.h">
+      <Filter>Header Files\Graphics\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="geometrymodel.h">
+      <Filter>Header Files\Graphics\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="tessmodel.h">
+      <Filter>Header Files\Graphics\Shapes</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Shaders\simple.frags">
+      <Filter>Source Files\Graphics\Shaders</Filter>
+    </None>
+    <None Include="Resources\Shaders\simple.verts">
+      <Filter>Source Files\Graphics\Shaders</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Resources\Shaders\text.frags">
+      <Filter>Source Files\Graphics\Shaders</Filter>
+    </Text>
+    <Text Include="Resources\Shaders\text.verts">
+      <Filter>Source Files\Graphics\Shaders</Filter>
+    </Text>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,29 @@
+#version 450 core
+
+in vec3 fragPos;
+in vec3 fragNormal;
+in vec2 fragTexCoord;
+
+out vec4 color;
+
+uniform vec3 camPos;
+uniform sampler2D tex;
+uniform samplerCube skybox;
+
+void main()
+{
+	// FOG
+	float d = distance(fragPos.xyz, camPos);
+	float lerp = (d-5.0f)/10.0f;
+	lerp = clamp(lerp, 0.0, 1.0);
+	vec4 vFogColor = vec4(0.5f, 0.5f, 0.5f, 1.0f);	
+
+	vec3 norm = normalize(fragNormal);
+	vec3 viewDir = normalize(fragPos - camPos);
+	vec3 reflectDir = reflect(viewDir , norm);
+
+	color = vec4(texture(skybox, reflectDir).rgb, 1.0f);
+
+	// blending with fog
+	color = mix(color, vFogColor, lerp);
+}
