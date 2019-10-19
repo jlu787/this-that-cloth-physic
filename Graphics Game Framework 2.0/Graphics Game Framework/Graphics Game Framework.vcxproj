@@ -150,6 +150,7 @@
     <ClCompile Include="gamemanager.cpp" />
     <ClCompile Include="geometrymodel.cpp" />
     <ClCompile Include="inputController.cpp" />
+    <ClCompile Include="line.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="object.cpp" />
     <ClCompile Include="player.cpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="gamemanager.h" />
     <ClInclude Include="geometrymodel.h" />
     <ClInclude Include="inputController.h" />
+    <ClInclude Include="line.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelMesh.h" />
     <ClInclude Include="object.h" />

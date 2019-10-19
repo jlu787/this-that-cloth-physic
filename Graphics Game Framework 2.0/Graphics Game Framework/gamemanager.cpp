@@ -58,6 +58,7 @@ void CGame::Initialise()
 		"Resources/Shaders/tesselation.tcs",
 		"Resources/Shaders/tesselation.tes");
 	m_PROGRAMS["SPHERE_COLOR"] = ShaderLoader::CreateProgram("Resources/Shaders/sphereBlinnPhong.verts", "Resources/Shaders/sphereColor.frags");
+	m_PROGRAMS["LINE"] = ShaderLoader::CreateProgram("Resources/Shaders/line.verts", "Resources/Shaders/line.frags");
 
 	// LOAD TEXTURES
 	m_TEXTURES["RAYMAN"] = Utils::loadTexture("Resources/Textures/Rayman.jpg");
@@ -92,7 +93,7 @@ void CGame::Initialise()
 	// create heightmap
 	//m_terrain = Terrain();
 	m_terrain.initialise(m_PROGRAMS["HEIGHTMAP"], m_TEXTURES["RAYMAN"], 0.0f, 0.0f, 0.0f, 1.0f);
-	m_cloth = CCloth(m_PROGRAMS["SPHERE_COLOR"], m_TEXTURES["RAYMAN"], 20.0f, 20.0f, 20, 20);
+	m_cloth = CCloth(m_PROGRAMS["LINE"], m_PROGRAMS["SPHERE_COLOR"], m_TEXTURES["RAYMAN"], 20.0f, 20.0f, 20, 20);
 
 	/*m_star = GeometryModel(m_PROGRAMS["GEOMETRY"]);
 	m_star.setPosX(6.0f);

@@ -1,6 +1,6 @@
 #include "cloth.h"
 
-CCloth::CCloth(GLuint _program, GLuint _texture, float _width, float _height, int _numHorizontalPoints, int _numVerticalPoints)
+CCloth::CCloth(GLuint _lineProgram, GLuint _pointProgram, GLuint _texture, float _width, float _height, int _numHorizontalPoints, int _numVerticalPoints)
 {
 	numHorizontalPoints = _numHorizontalPoints;
 	numVerticalPoints = _numVerticalPoints;
@@ -17,7 +17,7 @@ CCloth::CCloth(GLuint _program, GLuint _texture, float _width, float _height, in
 	{
 		for (int x = 0; x < numHorizontalPoints; x++)
 		{
-			points.push_back(CPoint(_program, _texture, glm::vec3(x*separationX + horizontalOffset, y*separationY + verticalOffset, 0)));
+			points.push_back(CPoint(_pointProgram, _texture, glm::vec3(x*separationX + horizontalOffset, y*separationY + verticalOffset, 0)));
 			//points[x+y].m_sphere.initialise()
 		}
 	}
@@ -36,34 +36,40 @@ CCloth::CCloth(GLuint _program, GLuint _texture, float _width, float _height, in
 		// vertical (up)
 		if (!topRow)
 			constraints.push_back(CConstraint(
+				_lineProgram,
 				&points[i], &points[i - numHorizontalPoints]
 			));
 
 		if (!topRows)
 			constraints.push_back(CConstraint(
+				_lineProgram,
 				&points[i], &points[i - numHorizontalPoints * 2]
 			));
 
 		// horizontal (left)
 		if (!leftCol)
 			constraints.push_back(CConstraint(
+				_lineProgram,
 				&points[i], &points[i - 1]
 			));
 
 		if (!leftCols)
 			constraints.push_back(CConstraint(
+				_lineProgram,
 				&points[i], &points[i - 2]
 			));
 
 		// diagonal \ 
 		if (!topRow && !leftCol)
 			constraints.push_back(CConstraint(
+				_lineProgram,
 				&points[i], &points[i - 1 - numHorizontalPoints]
 			));
 
 		// diagonal / 
 		if (!topRow && !rightCol)
 			constraints.push_back(CConstraint(
+				_lineProgram,
 				&points[i], &points[i + 1 - numHorizontalPoints]
 			));
 	}
@@ -84,6 +90,6 @@ void CCloth::Render(CCamera* _camera)
 
 	for (auto it = constraints.begin(); it != constraints.end(); it++)
 	{
-		(*it).Render();
+		(*it).Render(_camera);
 	}
 }

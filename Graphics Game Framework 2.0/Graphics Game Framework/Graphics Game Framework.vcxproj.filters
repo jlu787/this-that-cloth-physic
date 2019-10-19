@@ -123,6 +123,9 @@
     <ClCompile Include="constraint.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="line.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pyramid.h">
@@ -205,6 +208,9 @@
     </ClInclude>
     <ClInclude Include="constraint.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="line.h">
+      <Filter>Header Files\Graphics\Shapes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
