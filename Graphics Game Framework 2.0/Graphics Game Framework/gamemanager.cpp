@@ -92,7 +92,7 @@ void CGame::Initialise()
 
 	// create heightmap
 	//m_terrain = Terrain();
-	m_terrain.initialise(m_PROGRAMS["HEIGHTMAP"], m_TEXTURES["RAYMAN"], 0.0f, 0.0f, 0.0f, 1.0f);
+	//m_terrain.initialise(m_PROGRAMS["HEIGHTMAP"], m_TEXTURES["RAYMAN"], 0.0f, 0.0f, 0.0f, 1.0f);
 	m_cloth = CCloth(m_PROGRAMS["LINE"], m_PROGRAMS["SPHERE_COLOR"], m_TEXTURES["RAYMAN"], 20.0f, 20.0f, 20, 20);
 
 	/*m_star = GeometryModel(m_PROGRAMS["GEOMETRY"]);
@@ -119,7 +119,7 @@ void CGame::Render()
 	//m_floor.Render(&m_camera);
 	//m_water.Render(&m_camera);
 
-	m_terrain.Render(&m_camera);
+	//m_terrain.Render(&m_camera);
 	//m_star.Render(&m_camera);
 	//m_tesselatedModel.Render(&m_camera);
 	m_cloth.Render(&m_camera);
@@ -183,11 +183,11 @@ void CGame::Update()
 	// Camera follow heightmap
 
 	// make sure the camera is within the bounds of the heightmap before checking for height
-	if (!(m_camera.getCamPos().x >= m_terrain.width()* 0.5 || m_camera.getCamPos().x <= m_terrain.width()* -0.5 ||
+	/*if (!(m_camera.getCamPos().x >= m_terrain.width()* 0.5 || m_camera.getCamPos().x <= m_terrain.width()* -0.5 ||
 		m_camera.getCamPos().z >= m_terrain.depth()* 0.5 || m_camera.getCamPos().z <= m_terrain.depth()* -0.5))
 	{
 		m_camera.setCamPos(glm::vec3(m_camera.getCamPos().x, m_terrain.getHeight(m_camera.getCamPos().x, m_camera.getCamPos().z) + 20.0f, m_camera.getCamPos().z));
-	}
+	}*/
 
 
 	mouseX = m_inputController.getMouseXWindow();

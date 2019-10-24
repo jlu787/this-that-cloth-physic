@@ -1,5 +1,5 @@
 #include <windows.h>
-//#include <vld.h>
+#include <vld.h>
 #include <iostream>
 
 //#include "Utility.h"
