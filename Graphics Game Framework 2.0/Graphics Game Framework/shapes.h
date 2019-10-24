@@ -13,18 +13,21 @@ public:
 	float getPosX();
 	float getPosY();
 	float getPosZ();
+	glm::vec3 getPos();
 	float getScaleX();
 	float getScaleY();
 	float getScaleZ();
 	float getRotX();
 	float getRotY();
 	float getRotZ();
+	
 	bool getActive();
 
 	// setters
 	void setPosX(float _pos);
 	void setPosY(float _pos);
 	void setPosZ(float _pos);
+	void setPos(glm::vec3 _pos);
 	void setScaleX(float _scale);
 	void setScaleY(float _scale);
 	void setScaleZ(float _scale);

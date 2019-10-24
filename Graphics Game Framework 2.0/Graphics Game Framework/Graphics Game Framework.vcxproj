@@ -141,6 +141,8 @@
     <ClCompile Include="audio.cpp" />
     <ClCompile Include="bullet.cpp" />
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="cloth.cpp" />
+    <ClCompile Include="constraint.cpp" />
     <ClCompile Include="cube.cpp" />
     <ClCompile Include="cubemap.cpp" />
     <ClCompile Include="enemy.cpp" />
@@ -148,9 +150,11 @@
     <ClCompile Include="gamemanager.cpp" />
     <ClCompile Include="geometrymodel.cpp" />
     <ClCompile Include="inputController.cpp" />
+    <ClCompile Include="line.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="object.cpp" />
     <ClCompile Include="player.cpp" />
+    <ClCompile Include="point.cpp" />
     <ClCompile Include="pyramid.cpp" />
     <ClCompile Include="quad.cpp" />
     <ClCompile Include="ShaderLoader_Complete.cpp" />
@@ -166,6 +170,8 @@
     <ClInclude Include="audio.h" />
     <ClInclude Include="bullet.h" />
     <ClInclude Include="camera.h" />
+    <ClInclude Include="cloth.h" />
+    <ClInclude Include="constraint.h" />
     <ClInclude Include="cube.h" />
     <ClInclude Include="cubemap.h" />
     <ClInclude Include="enemy.h" />
@@ -173,10 +179,12 @@
     <ClInclude Include="gamemanager.h" />
     <ClInclude Include="geometrymodel.h" />
     <ClInclude Include="inputController.h" />
+    <ClInclude Include="line.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelMesh.h" />
     <ClInclude Include="object.h" />
     <ClInclude Include="player.h" />
+    <ClInclude Include="point.h" />
     <ClInclude Include="pyramid.h" />
     <ClInclude Include="quad.h" />
     <ClInclude Include="ShaderLoader_Complete.h" />

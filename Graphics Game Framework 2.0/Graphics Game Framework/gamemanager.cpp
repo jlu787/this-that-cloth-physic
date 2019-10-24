@@ -57,6 +57,8 @@ void CGame::Initialise()
 		"Resources/Shaders/tesselation.frags",
 		"Resources/Shaders/tesselation.tcs",
 		"Resources/Shaders/tesselation.tes");
+	m_PROGRAMS["SPHERE_COLOR"] = ShaderLoader::CreateProgram("Resources/Shaders/sphereBlinnPhong.verts", "Resources/Shaders/sphereColor.frags");
+	m_PROGRAMS["LINE"] = ShaderLoader::CreateProgram("Resources/Shaders/line.verts", "Resources/Shaders/line.frags");
 
 	// LOAD TEXTURES
 	m_TEXTURES["RAYMAN"] = Utils::loadTexture("Resources/Textures/Rayman.jpg");
@@ -91,22 +93,15 @@ void CGame::Initialise()
 	// create heightmap
 	//m_terrain = Terrain();
 	m_terrain.initialise(m_PROGRAMS["HEIGHTMAP"], m_TEXTURES["RAYMAN"], 0.0f, 0.0f, 0.0f, 1.0f);
+	m_cloth = CCloth(m_PROGRAMS["LINE"], m_PROGRAMS["SPHERE_COLOR"], m_TEXTURES["RAYMAN"], 20.0f, 20.0f, 20, 20);
 
-	m_star = GeometryModel(m_PROGRAMS["GEOMETRY"]);
+	/*m_star = GeometryModel(m_PROGRAMS["GEOMETRY"]);
 	m_star.setPosX(6.0f);
 	m_star.setPosY(60.0f);
 	m_star.setPosZ(0.0f);
 	m_star.setScaleX(20.0f);
 	m_star.setScaleY(20.0f);
-	m_star.setScaleZ(20.0f);
-
-	m_tesselatedModel = TessModel(m_PROGRAMS["TESSELATION"]);
-	m_tesselatedModel.setPosX(6.0f);
-	m_tesselatedModel.setPosY(60.0f);
-	m_tesselatedModel.setPosZ(0.0f);
-	m_tesselatedModel.setScaleX(20.0f);
-	m_tesselatedModel.setScaleY(20.0f);
-	m_tesselatedModel.setScaleZ(20.0f);
+	m_star.setScaleZ(20.0f);*/
 
 	m_camera.setCameraSpeed(200.0f);
 }
@@ -125,8 +120,9 @@ void CGame::Render()
 	//m_water.Render(&m_camera);
 
 	m_terrain.Render(&m_camera);
-	m_star.Render(&m_camera);
-	m_tesselatedModel.Render(&m_camera);
+	//m_star.Render(&m_camera);
+	//m_tesselatedModel.Render(&m_camera);
+	m_cloth.Render(&m_camera);
 
 	//// Stencil Buffer
 	//glEnable(GL_STENCIL_TEST);

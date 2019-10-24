@@ -25,6 +25,7 @@
 #include "terrain.h"
 #include "geometrymodel.h"
 #include "tessmodel.h"
+#include "cloth.h"
 
 #pragma region DEFINES
 // Models
@@ -119,6 +120,10 @@ private:
 
 	/*CCube zoomIn;
 	CCube zoomOut;*/
+
+	CCloth m_cloth;
+	
+
 
 	// MOUSE PICKING
 	glm::vec3 rayDirection;
