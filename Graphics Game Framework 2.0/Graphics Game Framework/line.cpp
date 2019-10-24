@@ -63,38 +63,38 @@ void CLine::Render(CCamera * _gameCam)
 
 	// Translation
 
-	//glm::vec3 objPosition = glm::vec3(m_posX, m_posY, m_posZ); // This is how much you will translate by
-	glm::mat4 translationMatrix = glm::translate(glm::mat4(), m_pos1); // create the transformation matrix
+	////glm::vec3 objPosition = glm::vec3(m_posX, m_posY, m_posZ); // This is how much you will translate by
+	//glm::mat4 translationMatrix = glm::translate(glm::mat4(), m_pos1); // create the transformation matrix
 
-																			// Rotation
-	float rotX = 0.0f, rotY = 0.0f, rotZ = 0.0f;
+	//																		// Rotation
+	//float rotX = 0.0f, rotY = 0.0f, rotZ = 0.0f;
 
-	// X axis
-	glm::vec3 rotationAxis = glm::vec3(1.0f, 0.0f, 0.0f);
-	rotX = atan2(m_pos2.y - m_pos1.y, m_pos2.z - m_pos1.z);
-	glm::mat4 rotationX = glm::rotate(glm::mat4(), (rotX), rotationAxis);
+	//// X axis
+	//glm::vec3 rotationAxis = glm::vec3(1.0f, 0.0f, 0.0f);
+	//rotX = atan2(m_pos2.y - m_pos1.y, -(m_pos2.z - m_pos1.z));
+	//glm::mat4 rotationX = glm::rotate(glm::mat4(), (rotX), rotationAxis);
 
-	// Y axis
-	rotationAxis = glm::vec3(0.0f, 1.0f, 0.0f);
-	rotY = atan2(m_pos2.z - m_pos1.z, m_pos2.x - m_pos1.x);
-	glm::mat4 rotationY = glm::rotate(glm::mat4(), (rotY), rotationAxis);
+	//// Y axis
+	//rotationAxis = glm::vec3(0.0f, 1.0f, 0.0f);
+	//rotY = atan2(m_pos2.x - m_pos1.x, -(m_pos2.z - m_pos1.z));
+	//glm::mat4 rotationY = glm::rotate(glm::mat4(), (rotY), rotationAxis);
 
-	// Z axis
-	rotationAxis = glm::vec3(0.0f, 0.0f, 1.0f);
-	rotZ = atan2(m_pos2.y - m_pos1.y, m_pos2.x - m_pos1.x);
-	glm::mat4 rotationZ = glm::rotate(glm::mat4(), (rotZ), rotationAxis);
+	//// Z axis
+	//rotationAxis = glm::vec3(0.0f, 0.0f, 1.0f);
+	//rotZ = atan2(m_pos2.y - m_pos1.y, m_pos2.x - m_pos1.x);
+	//glm::mat4 rotationZ = glm::rotate(glm::mat4(), (rotZ), rotationAxis);
 
-	// Scaling
-	float scaleDistance = glm::distance(m_pos1, m_pos2);
-	glm::vec3 objScale = glm::vec3(scaleDistance, scaleDistance, scaleDistance);
-	glm::mat4 scaleMatrix = glm::scale(glm::mat4(), objScale);
+	//// Scaling
+	//float scaleDistance = glm::distance(m_pos1, m_pos2);
+	//glm::vec3 objScale = glm::vec3(scaleDistance, scaleDistance, scaleDistance);
+	//glm::mat4 scaleMatrix = glm::scale(glm::mat4(), objScale);
 
-	// Getting model matrix
-	glm::mat4 model = translationMatrix * rotationX * rotationY * rotationZ * scaleMatrix;
+	//// Getting model matrix
+	//glm::mat4 model = translationMatrix * rotationX * rotationY * rotationZ * scaleMatrix;
 
 	// MVP Matrix
 	// Calculate the MVP matrix
-	glm::mat4 MVP = _gameCam->getProjMat() * _gameCam->getViewMat() * model;
+	glm::mat4 MVP = _gameCam->getProjMat() * _gameCam->getViewMat()/* * model*/;
 	// Send via uniform
 	GLuint projLoc = glGetUniformLocation(m_program, "mvp");
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(MVP));

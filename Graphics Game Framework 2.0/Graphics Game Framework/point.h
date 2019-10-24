@@ -7,15 +7,17 @@ class CPoint
 public:
 	//CPoint(glm::vec3 _pos);
 	CPoint() {};
-	CPoint(GLuint _program, GLuint _texture, glm::vec3 _pos);
+	CPoint(GLuint _program, GLuint _texture, glm::vec3 _pos, float _damping, float _mass);
 
 	~CPoint() {};
 
-	bool isStatic;
+	bool isStatic = false;
+	glm::vec3 force;
 	glm::vec3 pos;
 	glm::vec3 lastPos;
 
 	float mass;
+	float damping;
 
 	void Update(float _deltaTime);
 

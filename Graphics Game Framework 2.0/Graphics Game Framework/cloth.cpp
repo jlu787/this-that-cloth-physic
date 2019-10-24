@@ -1,23 +1,24 @@
 #include "cloth.h"
 
-CCloth::CCloth(GLuint _lineProgram, GLuint _pointProgram, GLuint _texture, float _width, float _height, int _numHorizontalPoints, int _numVerticalPoints)
+CCloth::CCloth(GLuint _lineProgram, GLuint _pointProgram, GLuint _texture, float _width, float _height, int _numHorizontalPoints, int _numVerticalPoints, float _damping, float _weight)
 {
 	numHorizontalPoints = _numHorizontalPoints;
 	numVerticalPoints = _numVerticalPoints;
 
 	float separationX = _width / _numHorizontalPoints,
 		separationY = _height / _numVerticalPoints,
-		numPoints = _numHorizontalPoints * _numVerticalPoints;
+		numPoints = _numHorizontalPoints * _numVerticalPoints,
+		pointMass = _weight / numPoints;
 
-	float horizontalOffset = 0.0f;
-	float verticalOffset = 30.0f;
+	float horizontalOffset = -20.0f;
+	float verticalOffset = 40.0f;
 
 	// Initialise all the points
 	for (int y = 0; y < numVerticalPoints; y++)
 	{
 		for (int x = 0; x < numHorizontalPoints; x++)
 		{
-			points.push_back(CPoint(_pointProgram, _texture, glm::vec3(x*separationX + horizontalOffset, y*separationY + verticalOffset, 0)));
+			points.push_back(CPoint(_pointProgram, _texture, glm::vec3(x*separationX + horizontalOffset, -y*separationY + verticalOffset, 0), _damping, pointMass));
 			//points[x+y].m_sphere.initialise()
 		}
 	}
@@ -74,6 +75,9 @@ CCloth::CCloth(GLuint _lineProgram, GLuint _pointProgram, GLuint _texture, float
 			));
 	}
 
+	points[0].isStatic = true;
+	points[numHorizontalPoints - 1].isStatic = true;
+
 }
 
 CCloth::~CCloth()
@@ -92,4 +96,27 @@ void CCloth::Render(CCamera* _camera)
 	{
 		(*it).Render(_camera);
 	}
+}
+
+void CCloth::Update(float _deltaTime)
+{
+	// Gravity
+	for (auto it = points.begin(); it != points.end(); it++)
+	{
+		(*it).force += gravity * _deltaTime;
+	}
+
+	// Satisfy constraints
+	for (auto it = constraints.begin(); it != constraints.end(); it++)
+	{
+		(*it).Satisfy();
+	}
+
+	// Apply Forces
+	for (auto it = points.begin(); it != points.end(); it++)
+	{
+		(*it).Update(_deltaTime);
+	}
+
+	std::cout << points[0].pos.y << std::endl;
 }

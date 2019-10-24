@@ -93,7 +93,7 @@ void CGame::Initialise()
 	// create heightmap
 	//m_terrain = Terrain();
 	m_terrain.initialise(m_PROGRAMS["HEIGHTMAP"], m_TEXTURES["RAYMAN"], 0.0f, 0.0f, 0.0f, 1.0f);
-	m_cloth = CCloth(m_PROGRAMS["LINE"], m_PROGRAMS["SPHERE_COLOR"], m_TEXTURES["RAYMAN"], 20.0f, 20.0f, 20, 20);
+	m_cloth = CCloth(m_PROGRAMS["LINE"], m_PROGRAMS["SPHERE_COLOR"], m_TEXTURES["RAYMAN"], 20.0f, 20.0f, 20, 20, 0.01, 10.0f);
 
 	/*m_star = GeometryModel(m_PROGRAMS["GEOMETRY"]);
 	m_star.setPosX(6.0f);
@@ -154,6 +154,7 @@ void CGame::Update()
 	
 	//m_cubeMap.Update();
 	m_camera.Update(deltaTime);
+	m_cloth.Update(deltaTime);
 
 	if (m_inputController.KeyState['w'] == INPUT_DOWN)
 	{

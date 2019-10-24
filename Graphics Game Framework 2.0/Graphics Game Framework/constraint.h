@@ -20,6 +20,7 @@ public:
 private:
 	CPoint *p1, *p2;
 	float distance;
+	float stiffness = 0.8f;
 	CLine line;
 
 	//const float stiffness = 0.8f;
