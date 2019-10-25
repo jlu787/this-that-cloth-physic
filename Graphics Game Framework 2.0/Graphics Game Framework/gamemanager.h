@@ -106,9 +106,9 @@ private:
 	bool inMenu = true;
 
 	// BACKGROUND ETC..
-	Terrain m_terrain;
-	GeometryModel m_star;
-	TessModel m_tesselatedModel;
+	/*Terrain m_terrain;*/
+	//GeometryModel m_star;
+	//TessModel m_tesselatedModel;
 
 
 	/*CReflectiveSphere m_reflectiveSphere;

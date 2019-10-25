@@ -2,6 +2,7 @@
 
 CGame::CGame()
 {
+	//m_cloth = CCloth(0,0,0,0,0,0,0);
 }
 
 CGame::~CGame()
@@ -92,8 +93,10 @@ void CGame::Initialise()
 
 	// create heightmap
 	//m_terrain = Terrain();
-	m_terrain.initialise(m_PROGRAMS["HEIGHTMAP"], m_TEXTURES["RAYMAN"], 0.0f, 0.0f, 0.0f, 1.0f);
-	m_cloth = CCloth(m_PROGRAMS["LINE"], m_PROGRAMS["SPHERE_COLOR"], m_TEXTURES["RAYMAN"], 20.0f, 20.0f, 20, 20, 0.01, 10.0f);
+	//m_terrain.initialise(m_PROGRAMS["HEIGHTMAP"], m_TEXTURES["RAYMAN"], 0.0f, 0.0f, 0.0f, 1.0f);
+	//m_cloth = CCloth(m_PROGRAMS["LINE"], m_PROGRAMS["SPHERE_COLOR"], m_TEXTURES["RAYMAN"], 20.0f, 20.0f, 20, 20, 0.01, 10.0f);
+	m_cloth = CCloth(20.0f, 20.0f, 20, 20, m_PROGRAMS["LINE"], m_PROGRAMS["SPHERE_COLOR"], m_TEXTURES["RAYMAN"]);
+
 
 	/*m_star = GeometryModel(m_PROGRAMS["GEOMETRY"]);
 	m_star.setPosX(6.0f);
@@ -112,14 +115,17 @@ void CGame::Render()
 
 	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	//glPolygonMode(GL_FRONT, GL_LINE);
-	
+
+	m_cloth.addForce(glm::vec3(0, -0.2, 0)*(float)(TIME_STEPSIZE2)); // add gravity each frame, pointing down
+	m_cloth.windForce(glm::vec3(0.0, 0, 0.1)*(float)(TIME_STEPSIZE2)); // generate some wind each frame
+	m_cloth.timeStep(); // calculate the particle positions of the next frame	
 	
 	//m_cubeMap.Render();
 	//m_reflectiveSphere.Render(&m_camera, m_cubeMap.getTexID());
 	//m_floor.Render(&m_camera);
 	//m_water.Render(&m_camera);
 
-	m_terrain.Render(&m_camera);
+	//m_terrain.Render(&m_camera);
 	//m_star.Render(&m_camera);
 	//m_tesselatedModel.Render(&m_camera);
 	m_cloth.Render(&m_camera);
@@ -154,7 +160,7 @@ void CGame::Update()
 	
 	//m_cubeMap.Update();
 	m_camera.Update(deltaTime);
-	m_cloth.Update(deltaTime);
+	//m_cloth.Update(deltaTime);
 
 	if (m_inputController.KeyState['w'] == INPUT_DOWN)
 	{
@@ -181,14 +187,21 @@ void CGame::Update()
 		ResetGame();
 	}
 
+
+	if (m_inputController.KeyState['1'] == INPUT_DOWN_FIRST)
+	{
+		m_cloth.Release();
+
+	}
+
 	// Camera follow heightmap
 
 	// make sure the camera is within the bounds of the heightmap before checking for height
-	if (!(m_camera.getCamPos().x >= m_terrain.width()* 0.5 || m_camera.getCamPos().x <= m_terrain.width()* -0.5 ||
-		m_camera.getCamPos().z >= m_terrain.depth()* 0.5 || m_camera.getCamPos().z <= m_terrain.depth()* -0.5))
-	{
-		m_camera.setCamPos(glm::vec3(m_camera.getCamPos().x, m_terrain.getHeight(m_camera.getCamPos().x, m_camera.getCamPos().z) + 20.0f, m_camera.getCamPos().z));
-	}
+	//if (!(m_camera.getCamPos().x >= m_terrain.width()* 0.5 || m_camera.getCamPos().x <= m_terrain.width()* -0.5 ||
+	//	m_camera.getCamPos().z >= m_terrain.depth()* 0.5 || m_camera.getCamPos().z <= m_terrain.depth()* -0.5))
+	//{
+	//	m_camera.setCamPos(glm::vec3(m_camera.getCamPos().x, m_terrain.getHeight(m_camera.getCamPos().x, m_camera.getCamPos().z) + 20.0f, m_camera.getCamPos().z));
+	//}
 
 
 	mouseX = m_inputController.getMouseXWindow();
@@ -216,6 +229,8 @@ float CGame::getDeltaTime()
 void CGame::ResetGame()
 {
 	m_camera.ResetCamera();
+
+	m_cloth = CCloth(20.0f, 20.0f, 20, 20, m_PROGRAMS["LINE"], m_PROGRAMS["SPHERE_COLOR"], m_TEXTURES["RAYMAN"]);
 }
 
 void CGame::ProcessDeltaTime()
