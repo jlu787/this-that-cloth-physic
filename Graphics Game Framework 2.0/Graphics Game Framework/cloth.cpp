@@ -13,45 +13,77 @@ void CCloth::GroundCheck()
 
 void CCloth::Release()
 {
+	released = true;
 	for (auto &point : points)
 	{
 		point.SetMovable(true);
 	}
 }
 
+void CCloth::SlideRings(float _delta)
+{
+	if (!released)
+	{
+		// making the upper row static
+		for (int i = 1; i < numHorizontalParticles; i++)
+		{
+			getParticle(i, 0)->offsetPos(glm::vec3(getParticle(i, 0)->getPos().x + _delta, getParticle(i,0)->getPos().y, getParticle(i, 0)->getPos().z));
+		}
+	}
+}
+
 void CCloth::timeStep()
 {
-	std::vector<CConstraint>::iterator constraint;
+	//std::vector<CConstraint>::iterator constraint;
+	//for (int i = 0; i < CONSTRAINT_ITERATIONS; i++) // iterate over all constraints several times
+	//{
+	//	for (constraint = constraints.begin(); constraint != constraints.end(); constraint++)
+	//	{
+	//		(*constraint).satisfyConstraint(); // satisfy constraint.
+	//	}
+	//}
+
+	//std::vector<CPoint>::iterator particle;
+	//for (particle = points.begin(); particle != points.end(); particle++)
+	//{
+	//	(*particle).timeStep(); // calculate the position of each particle at the next time step.
+	//}
+
 	for (int i = 0; i < CONSTRAINT_ITERATIONS; i++) // iterate over all constraints several times
 	{
-		for (constraint = constraints.begin(); constraint != constraints.end(); constraint++)
+		for (auto &constraint : constraints)
 		{
-			(*constraint).satisfyConstraint(); // satisfy constraint.
+			constraint.satisfyConstraint();
 		}
 	}
 
-	std::vector<CPoint>::iterator particle;
-	for (particle = points.begin(); particle != points.end(); particle++)
+	for (auto &point : points)
 	{
-		(*particle).timeStep(); // calculate the position of each particle at the next time step.
+		point.timeStep();
 	}
 }
 
 void CCloth::addForce(const glm::vec3 direction)
 {
-	std::vector<CPoint>::iterator particle;
-	for (particle = points.begin(); particle != points.end(); particle++)
+	//std::vector<CPoint>::iterator particle;
+	//for (particle = points.begin(); particle != points.end(); particle++)
+	//{
+	//	(*particle).addForce(direction); // add the forces to each particle
+	//}
+
+	for (auto &point : points)
 	{
-		(*particle).addForce(direction); // add the forces to each particle
+		point.addForce(direction);
 	}
 }
 
 void CCloth::windForce(const glm::vec3 direction)
 {
-	for (int x = 0; x < num_particles_width - 1; x++)
+	for (int x = 0; x < numHorizontalParticles - 1; x++)
 	{
-		for (int y = 0; y < num_particles_height - 1; y++)
+		for (int y = 0; y < numVerticalParticles - 1; y++)
 		{
+			// adds wind force for 2 triangles making a quadrant of the cloth
 			addWindForcesForTriangle(getParticle(x + 1, y), getParticle(x, y), getParticle(x, y + 1), direction);
 			addWindForcesForTriangle(getParticle(x + 1, y + 1), getParticle(x + 1, y), getParticle(x, y + 1), direction);
 		}

@@ -116,8 +116,8 @@ void CGame::Render()
 	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	//glPolygonMode(GL_FRONT, GL_LINE);
 
-	m_cloth.addForce(glm::vec3(0, -0.2, 0)*(float)(TIME_STEPSIZE2)); // add gravity each frame, pointing down
-	m_cloth.windForce(glm::vec3(0.0, 0, 0.1)*(float)(TIME_STEPSIZE2)); // generate some wind each frame
+	m_cloth.addForce(glm::vec3(0, -0.2, 0)*(float)(TIME_STEP)); // add gravity each frame, pointing down
+	m_cloth.windForce(glm::vec3(0.0, 0, 0.1)*(float)(TIME_STEP)); // generate some wind each frame
 	m_cloth.timeStep(); // calculate the particle positions of the next frame	
 	m_cloth.GroundCheck();
 	
@@ -195,6 +195,16 @@ void CGame::Update()
 
 	}
 
+	if (m_inputController.KeyState['j'] == INPUT_DOWN)
+	{
+		m_cloth.SlideRings(-0.5);
+	}
+	
+	if (m_inputController.KeyState['k'] == INPUT_DOWN)
+	{
+		m_cloth.SlideRings(0.5);
+	}
+
 	// The escape key 
 	if (m_inputController.KeyState[27] == INPUT_DOWN_FIRST)
 	{
@@ -260,6 +270,7 @@ void CGame::ProcessDeltaTime()
 
 void CGame::ShutDown()
 {
+	exit(0);
 }
 
 //void CGame::DrawScaledUp(CShape* _object, float _scale)

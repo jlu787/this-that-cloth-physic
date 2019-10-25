@@ -14,10 +14,7 @@ public:
 
 	CSphere m_sphere;
 
-	void addForce(glm::vec3 f)
-	{
-		acceleration += f / mass;
-	}
+	void addForce(glm::vec3 f);
 
 	/* This is one of the important methods, where the time is progressed a single step size (TIME_STEPSIZE)
 	   The method is called by Cloth.time_step()
@@ -28,20 +25,10 @@ public:
 
 	void setPos(glm::vec3 _pos) { pos = _pos; m_sphere.setPos(_pos); }
 
-	void resetAcceleration() { acceleration = glm::vec3(0, 0, 0); }
-
 	void offsetPos(const glm::vec3 v) { if (movable) pos += v; }
 
 	void SetMovable(bool _b) { movable = _b; }
-
-	/*void addToNormal(glm::vec3 normal)
-	{
-		accumulated_normal += glm::normalize(normal);
-	}*/
-
-	//glm::vec3& getNormal() { return accumulated_normal; } // notice, the normal is not unit length
-
-	//void resetNormal() { accumulated_normal = glm::vec3(0, 0, 0); }
+	bool GetMovable() { return movable; }
 
 private:
 	bool movable; // can the particle move or not ? used to pin parts of the cloth
@@ -50,5 +37,5 @@ private:
 	glm::vec3 pos; // the current position of the particle in 3D space
 	glm::vec3 old_pos; // the position of the particle in the previous time step, used as part of the verlet numerical integration scheme
 	glm::vec3 acceleration; // a vector representing the current acceleration of the particle
-	glm::vec3 accumulated_normal; // an accumulated normal (i.e. non normalized), used for OpenGL soft shading
+	//glm::vec3 accumulated_normal; // an accumulated normal (i.e. non normalized), used for OpenGL soft shading
 };
