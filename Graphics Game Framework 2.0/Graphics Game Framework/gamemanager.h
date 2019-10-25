@@ -69,6 +69,8 @@ public:
 
 	void DrawScaledUp(CShape * _object, float _scale);
 
+	void ShutDown();
+
 	// MOVE BACK to private later
 	CCamera m_camera;
 	CCamera m_canvas;
@@ -81,7 +83,7 @@ private:
 	CPlayer m_player;
 
 	//CObject m_objects[50];
-	CAudioManager m_audio;
+	//CAudioManager m_audio;
 	//CCamera m_camera;
 	GLuint m_program;
 

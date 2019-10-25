@@ -119,6 +119,7 @@ void CGame::Render()
 	m_cloth.addForce(glm::vec3(0, -0.2, 0)*(float)(TIME_STEPSIZE2)); // add gravity each frame, pointing down
 	m_cloth.windForce(glm::vec3(0.0, 0, 0.1)*(float)(TIME_STEPSIZE2)); // generate some wind each frame
 	m_cloth.timeStep(); // calculate the particle positions of the next frame	
+	m_cloth.GroundCheck();
 	
 	//m_cubeMap.Render();
 	//m_reflectiveSphere.Render(&m_camera, m_cubeMap.getTexID());
@@ -194,6 +195,13 @@ void CGame::Update()
 
 	}
 
+	// The escape key 
+	if (m_inputController.KeyState[27] == INPUT_DOWN_FIRST)
+	{
+		exit(0);
+	}
+
+
 	// Camera follow heightmap
 
 	// make sure the camera is within the bounds of the heightmap before checking for height
@@ -248,6 +256,10 @@ void CGame::ProcessDeltaTime()
 	{
 		deltaTime = 1.0f;
 	}
+}
+
+void CGame::ShutDown()
+{
 }
 
 //void CGame::DrawScaledUp(CShape* _object, float _scale)

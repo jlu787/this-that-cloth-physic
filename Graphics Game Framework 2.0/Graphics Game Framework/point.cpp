@@ -28,15 +28,21 @@
 //	}
 //	m_sphere.setPos(pointPos);
 //}
-//
-//void CPoint::Move(glm::vec3 _delta)
-//{
-//	if (isStatic) return;
-//
-//	pointPos += _delta;
-//}
+
 //
 //void CPoint::Render(CCamera* _camera)
 //{
 //	m_sphere.Render(_camera);
 //}
+
+void CPoint::timeStep()
+{
+	if (movable)
+	{
+		glm::vec3 temp = pos;
+		pos = pos + (pos - old_pos) * (float)(1.0f - DAMPING) + acceleration * (float)(TIME_STEPSIZE2);
+		old_pos = temp;
+		acceleration = glm::vec3(0, 0, 0); // acceleration is reset since it HAS been translated into a change in position (and implicitely into velocity)	
+	}
+	m_sphere.setPos(pos);
+}

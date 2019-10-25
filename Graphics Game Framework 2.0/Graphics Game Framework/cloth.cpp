@@ -1,156 +1,97 @@
 #include "cloth.h"
 
-//CCloth::CCloth(GLuint _lineProgram, GLuint _pointProgram, GLuint _texture, float _width, float _height, int _numHorizontalPoints, int _numVerticalPoints, float _damping, float _weight)
-//{
-//	numHorizontalPoints = _numHorizontalPoints;
-//	numVerticalPoints = _numVerticalPoints;
-//
-//	float separationX = _width / _numHorizontalPoints,
-//		separationY = _height / _numVerticalPoints,
-//		numPoints = _numHorizontalPoints * _numVerticalPoints,
-//		pointMass = _weight / numPoints;
-//
-//	float horizontalOffset = -20.0f;
-//	float verticalOffset = 55.0f;
-//
-//	// Initialise all the points
-//	for (int y = 0; y < numVerticalPoints; y++)
-//	{
-//		for (int x = 0; x < numHorizontalPoints; x++)
-//		{
-//			points.push_back(CPoint(_pointProgram, _texture, glm::vec3(x*separationX + horizontalOffset, -y*separationY + verticalOffset, 50), _damping, pointMass));
-//			//points[x+y].m_sphere.initialise()
-//		}
-//	}
-//
-//
-//	//// Make the constraints
-//	//// Connecting immediate neighbor particles with constraints (distance 1 and sqrt(2) in the grid)
-//	//for (int x = 0; x < numHorizontalPoints; x++)
-//	//{
-//	//	for (int y = 0; y < numVerticalPoints; y++)
-//	//	{
-//	//		if (x < numHorizontalPoints - 1)  constraints.push_back(CConstraint(_lineProgram,getPoint(x, y), getPoint(x + 1, y)));
-//	//		if (y < numVerticalPoints - 1) constraints.push_back(CConstraint(_lineProgram,getPoint(x, y), getPoint(x, y + 1)));
-//	//		if (x < numHorizontalPoints - 1 && y < numVerticalPoints - 1) constraints.push_back(CConstraint(_lineProgram,getPoint(x, y), getPoint(x + 1, y + 1)));
-//	//		if (x < numHorizontalPoints - 1 && y < numVerticalPoints - 1) constraints.push_back(CConstraint(_lineProgram,getPoint(x + 1, y), getPoint(x, y + 1)));
-//	//	}
-//	//}
-//
-//
-//	//// Connecting secondary neighbors with constraints (distance 2 and sqrt(4) in the grid)
-//	//for (int x = 0; x < numHorizontalPoints; x++)
-//	//{
-//	//	for (int y = 0; y < numVerticalPoints; y++)
-//	//	{
-//	//		if (x < numHorizontalPoints - 2) constraints.push_back(CConstraint(_lineProgram,getPoint(x, y), getPoint(x + 2, y)));
-//	//		if (y < numVerticalPoints - 2) constraints.push_back(CConstraint(_lineProgram,getPoint(x, y), getPoint(x, y + 2)));
-//	//		if (x < numHorizontalPoints - 2 && y < numVerticalPoints - 2) constraints.push_back(CConstraint(_lineProgram,getPoint(x, y), getPoint(x + 2, y + 2)));
-//	//		if (x < numHorizontalPoints - 2 && y < numVerticalPoints - 2) constraints.push_back(CConstraint(_lineProgram,getPoint(x + 2, y), getPoint(x, y + 2)));
-//	//	}
-//	//}
-//
-//	for (int i = 0; i < numPoints; i++)
-//	{
-//		bool
-//			leftCol = i % numHorizontalPoints == 0,
-//			rightCol = (i + 1) % numHorizontalPoints == 0,
-//			topRow = i < numHorizontalPoints,
-//			topRows = i < numHorizontalPoints * 2, // top 2 rows
-//			leftCols = leftCol || (i - 1) % numHorizontalPoints == 0; // 2 leftmost columns
-//
-//		// vertical (up)
-//		if (!topRow)
-//			constraints.push_back(CConstraint(
-//				_lineProgram,
-//				&points[i], &points[i - numHorizontalPoints]
-//			));
-//
-//		//if (!topRows)
-//		//	constraints.push_back(CConstraint(
-//		//		_lineProgram,
-//		//		&points[i], &points[i - numHorizontalPoints * 2]
-//		//	));
-//
-//		// horizontal (left)
-//		if (!leftCol)
-//			constraints.push_back(CConstraint(
-//				_lineProgram,
-//				&points[i], &points[i - 1]
-//			));
-//
-//		//if (!leftCols)
-//		//	constraints.push_back(CConstraint(
-//		//		_lineProgram,
-//		//		&points[i], &points[i - 2]
-//		//	));
-//
-//		//// diagonal \ 
-//		//if (!topRow && !leftCol)
-//		//	constraints.push_back(CConstraint(
-//		//		_lineProgram,
-//		//		&points[i], &points[i - 1 - numHorizontalPoints]
-//		//	));
-//
-//		//// diagonal / 
-//		//if (!topRow && !rightCol)
-//		//	constraints.push_back(CConstraint(
-//		//		_lineProgram,
-//		//		&points[i], &points[i + 1 - numHorizontalPoints]
-//		//	));
-//	}
-//
-//	for (int i = 0; i < numHorizontalPoints; i++)
-//	{
-//		points[i].isStatic = true;
-//	}
-//
-//	/*points[0].isStatic = true;
-//	points[numHorizontalPoints - 1].isStatic = true;*/
-//	//points[200].isStatic = true;
-//}
-//
-//CCloth::~CCloth()
-//{
-//	
-//}
-//
-//void CCloth::Render(CCamera* _camera)
-//{
-//	for (auto it = points.begin(); it != points.end(); it++)
-//	{
-//		(*it).Render(_camera);
-//	}
-//
-//	for (auto it = constraints.begin(); it != constraints.end(); it++)
-//	{
-//		(*it).Render(_camera);
-//	}
-//}
-//
-//void CCloth::Update(float _deltaTime)
-//{
-//	// Gravity
-//	for (auto it = points.begin(); it != points.end(); it++)
-//	{
-//		(*it).force += gravity * _deltaTime;
-//	}
-//
-//	// Satisfy constraints
-//	for (int i = 0; i < 3; i++)
-//	{
-//		for (auto it = constraints.begin(); it != constraints.end(); it++)
-//		{
-//			(*it).Satisfy();
-//		}
-//	}
-//
-//
-//	// Apply Forces
-//	for (auto it = points.begin(); it != points.end(); it++)
-//	{
-//		(*it).Update(_deltaTime);
-//	}
-//
-//	//std::cout << points[2].pos.y << std::endl;
-//}
+void CCloth::GroundCheck()
+{
+	for (auto &point : points)
+	{
+		if (point.getPos().y < ground)
+		{
+			point.setPos(glm::vec3(point.getPos().x, ground, point.getPos().z));
+		}
+	}
+}
+
+void CCloth::Release()
+{
+	for (auto &point : points)
+	{
+		point.SetMovable(true);
+	}
+}
+
+void CCloth::timeStep()
+{
+	std::vector<CConstraint>::iterator constraint;
+	for (int i = 0; i < CONSTRAINT_ITERATIONS; i++) // iterate over all constraints several times
+	{
+		for (constraint = constraints.begin(); constraint != constraints.end(); constraint++)
+		{
+			(*constraint).satisfyConstraint(); // satisfy constraint.
+		}
+	}
+
+	std::vector<CPoint>::iterator particle;
+	for (particle = points.begin(); particle != points.end(); particle++)
+	{
+		(*particle).timeStep(); // calculate the position of each particle at the next time step.
+	}
+}
+
+void CCloth::addForce(const glm::vec3 direction)
+{
+	std::vector<CPoint>::iterator particle;
+	for (particle = points.begin(); particle != points.end(); particle++)
+	{
+		(*particle).addForce(direction); // add the forces to each particle
+	}
+}
+
+void CCloth::windForce(const glm::vec3 direction)
+{
+	for (int x = 0; x < num_particles_width - 1; x++)
+	{
+		for (int y = 0; y < num_particles_height - 1; y++)
+		{
+			addWindForcesForTriangle(getParticle(x + 1, y), getParticle(x, y), getParticle(x, y + 1), direction);
+			addWindForcesForTriangle(getParticle(x + 1, y + 1), getParticle(x + 1, y), getParticle(x, y + 1), direction);
+		}
+	}
+}
+
+void CCloth::Render(CCamera * _camera)
+{
+	for (auto it = points.begin(); it != points.end(); it++)
+	{
+		(*it).m_sphere.Render(_camera);
+	}
+
+	for (auto it = constraints.begin(); it != constraints.end(); it++)
+	{
+		if ((*it).shouldRender)
+		{
+			(*it).m_line.Render(_camera);
+		}
+	}
+}
+
+glm::vec3 CCloth::calcTriangleNormal(CPoint * p1, CPoint * p2, CPoint * p3)
+{
+	glm::vec3 pos1 = p1->getPos();
+	glm::vec3 pos2 = p2->getPos();
+	glm::vec3 pos3 = p3->getPos();
+
+	glm::vec3 v1 = pos2 - pos1;
+	glm::vec3 v2 = pos3 - pos1;
+
+	return glm::cross(v1, v2);
+}
+
+void CCloth::addWindForcesForTriangle(CPoint * p1, CPoint * p2, CPoint * p3, const glm::vec3 direction)
+{
+	glm::vec3 normal = calcTriangleNormal(p1, p2, p3);
+	glm::vec3 d = glm::normalize(normal);
+	glm::vec3 force = normal * glm::dot(d, direction);
+	p1->addForce(force);
+	p2->addForce(force);
+	p3->addForce(force);
+}

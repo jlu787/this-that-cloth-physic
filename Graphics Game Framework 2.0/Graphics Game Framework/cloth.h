@@ -82,8 +82,11 @@ public:
 
 		//getParticle(num_particles_width-1, 0)->offsetPos(glm::vec3(-0.5, 0.0, 0.0));
 		//getParticle(num_particles_width-1, 0)->makeUnmovable();
-
 	}
+
+	float ground = 0.0f;
+
+	void GroundCheck();
 
 	GLuint m_lineProgram;
 
@@ -145,58 +148,18 @@ public:
 	this function makes all the points movable
 	*/
 
-	void Release()
-	{
-		for (auto &point : points)
-		{
-			point.SetMovable(true);
-		}
-	}
+	void Release();
 
 	/* this is an important methods where the time is progressed one time step for the entire cloth.
 	This includes calling satisfyConstraint() for every constraint, and calling timeStep() for all particles
 	*/
-	void timeStep()
-	{
-		std::vector<CConstraint>::iterator constraint;
-		for (int i = 0; i < CONSTRAINT_ITERATIONS; i++) // iterate over all constraints several times
-		{
-			for (constraint = constraints.begin(); constraint != constraints.end(); constraint++)
-			{
-				(*constraint).satisfyConstraint(); // satisfy constraint.
-			}
-		}
-
-		std::vector<CPoint>::iterator particle;
-		for (particle = points.begin(); particle != points.end(); particle++)
-		{
-			(*particle).timeStep(); // calculate the position of each particle at the next time step.
-		}
-	}
+	void timeStep();
 
 	/* used to add gravity (or any other arbitrary vector) to all particles*/
-	void addForce(const glm::vec3 direction)
-	{
-		std::vector<CPoint>::iterator particle;
-		for (particle = points.begin(); particle != points.end(); particle++)
-		{
-			(*particle).addForce(direction); // add the forces to each particle
-		}
-
-	}
+	void addForce(const glm::vec3 direction);
 
 	/* used to add wind forces to all particles, is added for each triangle since the final force is proportional to the triangle area as seen from the wind direction*/
-	void windForce(const glm::vec3 direction)
-	{
-		for (int x = 0; x < num_particles_width - 1; x++)
-		{
-			for (int y = 0; y < num_particles_height - 1; y++)
-			{
-				addWindForcesForTriangle(getParticle(x + 1, y), getParticle(x, y), getParticle(x, y + 1), direction);
-				addWindForcesForTriangle(getParticle(x + 1, y + 1), getParticle(x + 1, y), getParticle(x, y + 1), direction);
-			}
-		}
-	}
+	void windForce(const glm::vec3 direction);
 
 	///* used to detect and resolve the collision of the cloth with the ball.
 	//This is based on a very simples scheme where the position of each particle is simply compared to the sphere and corrected.
@@ -216,21 +179,7 @@ public:
 	//	}
 	//}
 
-	void Render(CCamera* _camera)
-	{
-		for (auto it = points.begin(); it != points.end(); it++)
-		{
-			(*it).m_sphere.Render(_camera);
-		}
-
-		for (auto it = constraints.begin(); it != constraints.end(); it++)
-		{
-			if ((*it).shouldRender)
-			{
-				(*it).m_line.Render(_camera);
-			}
-		}
-	}
+	void Render(CCamera* _camera);
 
 private:
 
@@ -249,44 +198,26 @@ private:
 	normal vector of the triangle defined by the position of the particles p1, p2, and p3.
 	The magnitude of the normal vector is equal to the area of the parallelogram defined by p1, p2 and p3
 	*/
-	glm::vec3 calcTriangleNormal(CPoint *p1, CPoint *p2, CPoint *p3)
-	{
-		glm::vec3 pos1 = p1->getPos();
-		glm::vec3 pos2 = p2->getPos();
-		glm::vec3 pos3 = p3->getPos();
-
-		glm::vec3 v1 = pos2 - pos1;
-		glm::vec3 v2 = pos3 - pos1;
-
-		return glm::cross(v1, v2);
-	}
+	glm::vec3 calcTriangleNormal(CPoint *p1, CPoint *p2, CPoint *p3);
 
 	/* A private method used by windForce() to calcualte the wind force for a single triangle
 	defined by p1,p2,p3*/
-	void addWindForcesForTriangle(CPoint *p1, CPoint *p2, CPoint *p3, const glm::vec3 direction)
-	{
-		glm::vec3 normal = calcTriangleNormal(p1, p2, p3);
-		glm::vec3 d = glm::normalize(normal);
-		glm::vec3 force = normal * glm::dot(d, direction);
-		p1->addForce(force);
-		p2->addForce(force);
-		p3->addForce(force);
-	}
+	void addWindForcesForTriangle(CPoint *p1, CPoint *p2, CPoint *p3, const glm::vec3 direction);
 
-	/* A private method used by drawShaded(), that draws a single triangle p1,p2,p3 with a color*/
-	void drawTriangle(CPoint *p1, CPoint *p2, CPoint *p3, const glm::vec3 color)
-	{
-		glColor3fv((GLfloat*)&color);
+	///* A private method used by drawShaded(), that draws a single triangle p1,p2,p3 with a color*/
+	//void drawTriangle(CPoint *p1, CPoint *p2, CPoint *p3, const glm::vec3 color)
+	//{
+	//	glColor3fv((GLfloat*)&color);
 
-		glNormal3fv((GLfloat *) &(glm::normalize(p1->getNormal())));
-		glVertex3fv((GLfloat *) &(p1->getPos()));
+	//	glNormal3fv((GLfloat *) &(glm::normalize(p1->getNormal())));
+	//	glVertex3fv((GLfloat *) &(p1->getPos()));
 
-		glNormal3fv((GLfloat *) &(glm::normalize(p2->getNormal())));
-		glVertex3fv((GLfloat *) &(p2->getPos()));
+	//	glNormal3fv((GLfloat *) &(glm::normalize(p2->getNormal())));
+	//	glVertex3fv((GLfloat *) &(p2->getPos()));
 
-		glNormal3fv((GLfloat *) &(glm::normalize(p3->getNormal())));
-		glVertex3fv((GLfloat *) &(p3->getPos()));
-	}
+	//	glNormal3fv((GLfloat *) &(glm::normalize(p3->getNormal())));
+	//	glVertex3fv((GLfloat *) &(p3->getPos()));
+	//}
 
 
 };

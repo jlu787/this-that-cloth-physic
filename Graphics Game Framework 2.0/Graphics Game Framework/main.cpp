@@ -118,7 +118,7 @@ void Update()
 
 void ShutDown()
 {
-	//myGame.ShutDown();
+	myGame.ShutDown();
 }
 
 void KeyboardDown(unsigned char key, int x, int y)
