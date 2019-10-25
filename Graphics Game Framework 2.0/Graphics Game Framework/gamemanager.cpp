@@ -37,26 +37,28 @@ void CGame::Initialise()
 	// LOAD AUDIO
 
 	// LOAD PROGRAMS
-	m_PROGRAMS["SIMPLE"] = ShaderLoader::CreateProgram("Resources/Shaders/simple.verts", "Resources/Shaders/simple.frags");
-	m_PROGRAMS["SIMPLE_BLINN"] = ShaderLoader::CreateProgram("Resources/Shaders/simpleBlinnPhong.verts", "Resources/Shaders/simpleBlinnPhong.frags");
-	m_PROGRAMS["SIMPLE_RIM"] = ShaderLoader::CreateProgram("Resources/Shaders/simpleRim.verts", "Resources/Shaders/simpleRim.frags");
-	m_PROGRAMS["SPHERE_BLINN"] = ShaderLoader::CreateProgram("Resources/Shaders/sphereBlinnPhong.verts", "Resources/Shaders/sphereBlinnPhong.frags");
-	m_PROGRAMS["SPHERE_RIM"] = ShaderLoader::CreateProgram("Resources/Shaders/sphereRim.verts", "Resources/Shaders/sphereRim.frags");
-	m_PROGRAMS["SPHERE_RIMBLUE"] = ShaderLoader::CreateProgram("Resources/Shaders/sphereRimBlue.verts", "Resources/Shaders/sphereRimBlue.frags");
-	m_PROGRAMS["SPHERE_REFLECT"] = ShaderLoader::CreateProgram("Resources/Shaders/reflectiveSphere.verts", "Resources/Shaders/reflectiveSphere.frags");
-	m_PROGRAMS["CUBEMAP"] = ShaderLoader::CreateProgram("Resources/Shaders/cubeMap.verts", "Resources/Shaders/cubeMap.frags");
-	m_PROGRAMS["MODEL"] = ShaderLoader::CreateProgram("Resources/Shaders/model.verts", "Resources/Shaders/model.frags");
-	m_PROGRAMS["TEXT"] = ShaderLoader::CreateProgram("Resources/Shaders/text.verts", "Resources/Shaders/text.frags");
-	m_PROGRAMS["STENCIL"] = ShaderLoader::CreateProgram("Resources/Shaders/simple.verts", "Resources/Shaders/stencil.frags");
-	m_PROGRAMS["FOG"] = ShaderLoader::CreateProgram("Resources/Shaders/simpleBlinnPhong.verts", "Resources/Shaders/simpleBlinnPhongFOG.frags");
-	m_PROGRAMS["HEIGHTMAP"] = ShaderLoader::CreateProgram("Resources/Shaders/heightmap.verts", "Resources/Shaders/heightmap.frags");
-	//m_PROGRAMS["TEST"] = ShaderLoader::CreateProgram("Resources/Shaders/test.verts", "Resources/Shaders/test.frags");
-	m_PROGRAMS["GEOMETRY"] = ShaderLoader::CreateProgram("Resources/Shaders/geometry.verts", "Resources/Shaders/geometry.frags", "Resources/Shaders/geometry.geoms");
-	m_PROGRAMS["TESSELATION"] = ShaderLoader::CreateProgram(
-		"Resources/Shaders/tesselation.verts",
-		"Resources/Shaders/tesselation.frags",
-		"Resources/Shaders/tesselation.tcs",
-		"Resources/Shaders/tesselation.tes");
+	//m_PROGRAMS["SIMPLE"] = ShaderLoader::CreateProgram("Resources/Shaders/simple.verts", "Resources/Shaders/simple.frags");
+	//m_PROGRAMS["SIMPLE_BLINN"] = ShaderLoader::CreateProgram("Resources/Shaders/simpleBlinnPhong.verts", "Resources/Shaders/simpleBlinnPhong.frags");
+	//m_PROGRAMS["SIMPLE_RIM"] = ShaderLoader::CreateProgram("Resources/Shaders/simpleRim.verts", "Resources/Shaders/simpleRim.frags");
+	//m_PROGRAMS["SPHERE_BLINN"] = ShaderLoader::CreateProgram("Resources/Shaders/sphereBlinnPhong.verts", "Resources/Shaders/sphereBlinnPhong.frags");
+	//m_PROGRAMS["SPHERE_RIM"] = ShaderLoader::CreateProgram("Resources/Shaders/sphereRim.verts", "Resources/Shaders/sphereRim.frags");
+	//m_PROGRAMS["SPHERE_RIMBLUE"] = ShaderLoader::CreateProgram("Resources/Shaders/sphereRimBlue.verts", "Resources/Shaders/sphereRimBlue.frags");
+	//m_PROGRAMS["SPHERE_REFLECT"] = ShaderLoader::CreateProgram("Resources/Shaders/reflectiveSphere.verts", "Resources/Shaders/reflectiveSphere.frags");
+	//m_PROGRAMS["CUBEMAP"] = ShaderLoader::CreateProgram("Resources/Shaders/cubeMap.verts", "Resources/Shaders/cubeMap.frags");
+	//m_PROGRAMS["MODEL"] = ShaderLoader::CreateProgram("Resources/Shaders/model.verts", "Resources/Shaders/model.frags");
+	//m_PROGRAMS["TEXT"] = ShaderLoader::CreateProgram("Resources/Shaders/text.verts", "Resources/Shaders/text.frags");
+	//m_PROGRAMS["STENCIL"] = ShaderLoader::CreateProgram("Resources/Shaders/simple.verts", "Resources/Shaders/stencil.frags");
+	//m_PROGRAMS["FOG"] = ShaderLoader::CreateProgram("Resources/Shaders/simpleBlinnPhong.verts", "Resources/Shaders/simpleBlinnPhongFOG.frags");
+	//m_PROGRAMS["HEIGHTMAP"] = ShaderLoader::CreateProgram("Resources/Shaders/heightmap.verts", "Resources/Shaders/heightmap.frags");
+	////m_PROGRAMS["TEST"] = ShaderLoader::CreateProgram("Resources/Shaders/test.verts", "Resources/Shaders/test.frags");
+	//m_PROGRAMS["GEOMETRY"] = ShaderLoader::CreateProgram("Resources/Shaders/geometry.verts", "Resources/Shaders/geometry.frags", "Resources/Shaders/geometry.geoms");
+	//m_PROGRAMS["TESSELATION"] = ShaderLoader::CreateProgram(
+	//	"Resources/Shaders/tesselation.verts",
+	//	"Resources/Shaders/tesselation.frags",
+	//	"Resources/Shaders/tesselation.tcs",
+	//	"Resources/Shaders/tesselation.tes");
+	m_PROGRAMS["SPHERE_COLOR"] = ShaderLoader::CreateProgram("Resources/Shaders/sphereBlinnPhong.verts", "Resources/Shaders/sphereColor.frags");
+	m_PROGRAMS["LINE"] = ShaderLoader::CreateProgram("Resources/Shaders/line.verts", "Resources/Shaders/line.frags");
 
 	// LOAD TEXTURES
 	m_TEXTURES["RAYMAN"] = Utils::loadTexture("Resources/Textures/Rayman.jpg");
@@ -90,23 +92,16 @@ void CGame::Initialise()
 
 	// create heightmap
 	//m_terrain = Terrain();
-	m_terrain.initialise(m_PROGRAMS["HEIGHTMAP"], m_TEXTURES["RAYMAN"], 0.0f, 0.0f, 0.0f, 1.0f);
+	//m_terrain.initialise(m_PROGRAMS["HEIGHTMAP"], m_TEXTURES["RAYMAN"], 0.0f, 0.0f, 0.0f, 1.0f);
+	m_cloth = CCloth(m_PROGRAMS["LINE"], m_PROGRAMS["SPHERE_COLOR"], m_TEXTURES["RAYMAN"], 20.0f, 20.0f, 20, 20);
 
-	m_star = GeometryModel(m_PROGRAMS["GEOMETRY"]);
+	/*m_star = GeometryModel(m_PROGRAMS["GEOMETRY"]);
 	m_star.setPosX(6.0f);
 	m_star.setPosY(60.0f);
 	m_star.setPosZ(0.0f);
 	m_star.setScaleX(20.0f);
 	m_star.setScaleY(20.0f);
-	m_star.setScaleZ(20.0f);
-
-	m_tesselatedModel = TessModel(m_PROGRAMS["TESSELATION"]);
-	m_tesselatedModel.setPosX(6.0f);
-	m_tesselatedModel.setPosY(60.0f);
-	m_tesselatedModel.setPosZ(0.0f);
-	m_tesselatedModel.setScaleX(20.0f);
-	m_tesselatedModel.setScaleY(20.0f);
-	m_tesselatedModel.setScaleZ(20.0f);
+	m_star.setScaleZ(20.0f);*/
 
 	m_camera.setCameraSpeed(200.0f);
 }
@@ -124,9 +119,10 @@ void CGame::Render()
 	//m_floor.Render(&m_camera);
 	//m_water.Render(&m_camera);
 
-	m_terrain.Render(&m_camera);
-	m_star.Render(&m_camera);
-	m_tesselatedModel.Render(&m_camera);
+	//m_terrain.Render(&m_camera);
+	//m_star.Render(&m_camera);
+	//m_tesselatedModel.Render(&m_camera);
+	m_cloth.Render(&m_camera);
 
 	//// Stencil Buffer
 	//glEnable(GL_STENCIL_TEST);
@@ -187,11 +183,11 @@ void CGame::Update()
 	// Camera follow heightmap
 
 	// make sure the camera is within the bounds of the heightmap before checking for height
-	if (!(m_camera.getCamPos().x >= m_terrain.width()* 0.5 || m_camera.getCamPos().x <= m_terrain.width()* -0.5 ||
+	/*if (!(m_camera.getCamPos().x >= m_terrain.width()* 0.5 || m_camera.getCamPos().x <= m_terrain.width()* -0.5 ||
 		m_camera.getCamPos().z >= m_terrain.depth()* 0.5 || m_camera.getCamPos().z <= m_terrain.depth()* -0.5))
 	{
 		m_camera.setCamPos(glm::vec3(m_camera.getCamPos().x, m_terrain.getHeight(m_camera.getCamPos().x, m_camera.getCamPos().z) + 20.0f, m_camera.getCamPos().z));
-	}
+	}*/
 
 
 	mouseX = m_inputController.getMouseXWindow();

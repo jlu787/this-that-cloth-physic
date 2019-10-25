@@ -25,6 +25,7 @@
 #include "terrain.h"
 #include "geometrymodel.h"
 #include "tessmodel.h"
+#include "cloth.h"
 
 #pragma region DEFINES
 // Models
@@ -104,9 +105,9 @@ private:
 	bool inMenu = true;
 
 	// BACKGROUND ETC..
-	Terrain m_terrain;
-	GeometryModel m_star;
-	TessModel m_tesselatedModel;
+	//Terrain m_terrain;
+	//GeometryModel m_star;
+	//TessModel m_tesselatedModel;
 
 
 	/*CReflectiveSphere m_reflectiveSphere;
@@ -119,6 +120,10 @@ private:
 
 	/*CCube zoomIn;
 	CCube zoomOut;*/
+
+	CCloth m_cloth;
+	
+
 
 	// MOUSE PICKING
 	glm::vec3 rayDirection;

@@ -114,6 +114,18 @@
     <ClCompile Include="tessmodel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="point.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cloth.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="constraint.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="line.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pyramid.h">
@@ -186,6 +198,18 @@
       <Filter>Header Files\Graphics\Shapes</Filter>
     </ClInclude>
     <ClInclude Include="tessmodel.h">
+      <Filter>Header Files\Graphics\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="point.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cloth.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="constraint.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="line.h">
       <Filter>Header Files\Graphics\Shapes</Filter>
     </ClInclude>
   </ItemGroup>

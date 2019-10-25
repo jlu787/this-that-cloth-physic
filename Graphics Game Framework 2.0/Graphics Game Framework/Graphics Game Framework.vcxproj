@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{D3BE35D9-16C8-4E8D-9848-669E9C77ABB6}</ProjectGuid>
     <RootNamespace>GraphicsGameFramework</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -94,6 +94,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>opengl32.lib;glew32.lib;freeglut.lib;SOIL.lib;fmod_vc.lib;freetype.lib;assimp-vc130-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -141,6 +142,8 @@
     <ClCompile Include="audio.cpp" />
     <ClCompile Include="bullet.cpp" />
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="cloth.cpp" />
+    <ClCompile Include="constraint.cpp" />
     <ClCompile Include="cube.cpp" />
     <ClCompile Include="cubemap.cpp" />
     <ClCompile Include="enemy.cpp" />
@@ -148,9 +151,11 @@
     <ClCompile Include="gamemanager.cpp" />
     <ClCompile Include="geometrymodel.cpp" />
     <ClCompile Include="inputController.cpp" />
+    <ClCompile Include="line.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="object.cpp" />
     <ClCompile Include="player.cpp" />
+    <ClCompile Include="point.cpp" />
     <ClCompile Include="pyramid.cpp" />
     <ClCompile Include="quad.cpp" />
     <ClCompile Include="ShaderLoader_Complete.cpp" />
@@ -166,6 +171,8 @@
     <ClInclude Include="audio.h" />
     <ClInclude Include="bullet.h" />
     <ClInclude Include="camera.h" />
+    <ClInclude Include="cloth.h" />
+    <ClInclude Include="constraint.h" />
     <ClInclude Include="cube.h" />
     <ClInclude Include="cubemap.h" />
     <ClInclude Include="enemy.h" />
@@ -173,10 +180,12 @@
     <ClInclude Include="gamemanager.h" />
     <ClInclude Include="geometrymodel.h" />
     <ClInclude Include="inputController.h" />
+    <ClInclude Include="line.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelMesh.h" />
     <ClInclude Include="object.h" />
     <ClInclude Include="player.h" />
+    <ClInclude Include="point.h" />
     <ClInclude Include="pyramid.h" />
     <ClInclude Include="quad.h" />
     <ClInclude Include="ShaderLoader_Complete.h" />

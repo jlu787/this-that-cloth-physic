@@ -17,6 +17,11 @@ float CShape::getPosZ()
 	return m_posZ;
 }
 
+glm::vec3 CShape::getPos()
+{
+	return glm::vec3(m_posX, m_posY, m_posZ);
+}
+
 float CShape::getScaleX()
 {
 	return m_scaleX;
@@ -65,6 +70,13 @@ void CShape::setPosY(float _pos)
 void CShape::setPosZ(float _pos)
 {
 	m_posZ = _pos;
+}
+
+void CShape::setPos(glm::vec3 _pos)
+{
+	m_posX = _pos.x;
+	m_posY = _pos.y;
+	m_posZ = _pos.z;
 }
 
 void CShape::setScaleX(float _scale)
