@@ -38,26 +38,26 @@ void CGame::Initialise()
 	// LOAD AUDIO
 
 	// LOAD PROGRAMS
-	m_PROGRAMS["SIMPLE"] = ShaderLoader::CreateProgram("Resources/Shaders/simple.verts", "Resources/Shaders/simple.frags");
-	m_PROGRAMS["SIMPLE_BLINN"] = ShaderLoader::CreateProgram("Resources/Shaders/simpleBlinnPhong.verts", "Resources/Shaders/simpleBlinnPhong.frags");
-	m_PROGRAMS["SIMPLE_RIM"] = ShaderLoader::CreateProgram("Resources/Shaders/simpleRim.verts", "Resources/Shaders/simpleRim.frags");
-	m_PROGRAMS["SPHERE_BLINN"] = ShaderLoader::CreateProgram("Resources/Shaders/sphereBlinnPhong.verts", "Resources/Shaders/sphereBlinnPhong.frags");
-	m_PROGRAMS["SPHERE_RIM"] = ShaderLoader::CreateProgram("Resources/Shaders/sphereRim.verts", "Resources/Shaders/sphereRim.frags");
-	m_PROGRAMS["SPHERE_RIMBLUE"] = ShaderLoader::CreateProgram("Resources/Shaders/sphereRimBlue.verts", "Resources/Shaders/sphereRimBlue.frags");
-	m_PROGRAMS["SPHERE_REFLECT"] = ShaderLoader::CreateProgram("Resources/Shaders/reflectiveSphere.verts", "Resources/Shaders/reflectiveSphere.frags");
-	m_PROGRAMS["CUBEMAP"] = ShaderLoader::CreateProgram("Resources/Shaders/cubeMap.verts", "Resources/Shaders/cubeMap.frags");
-	m_PROGRAMS["MODEL"] = ShaderLoader::CreateProgram("Resources/Shaders/model.verts", "Resources/Shaders/model.frags");
-	m_PROGRAMS["TEXT"] = ShaderLoader::CreateProgram("Resources/Shaders/text.verts", "Resources/Shaders/text.frags");
-	m_PROGRAMS["STENCIL"] = ShaderLoader::CreateProgram("Resources/Shaders/simple.verts", "Resources/Shaders/stencil.frags");
-	m_PROGRAMS["FOG"] = ShaderLoader::CreateProgram("Resources/Shaders/simpleBlinnPhong.verts", "Resources/Shaders/simpleBlinnPhongFOG.frags");
-	m_PROGRAMS["HEIGHTMAP"] = ShaderLoader::CreateProgram("Resources/Shaders/heightmap.verts", "Resources/Shaders/heightmap.frags");
-	//m_PROGRAMS["TEST"] = ShaderLoader::CreateProgram("Resources/Shaders/test.verts", "Resources/Shaders/test.frags");
-	m_PROGRAMS["GEOMETRY"] = ShaderLoader::CreateProgram("Resources/Shaders/geometry.verts", "Resources/Shaders/geometry.frags", "Resources/Shaders/geometry.geoms");
-	m_PROGRAMS["TESSELATION"] = ShaderLoader::CreateProgram(
-		"Resources/Shaders/tesselation.verts",
-		"Resources/Shaders/tesselation.frags",
-		"Resources/Shaders/tesselation.tcs",
-		"Resources/Shaders/tesselation.tes");
+	//m_PROGRAMS["SIMPLE"] = ShaderLoader::CreateProgram("Resources/Shaders/simple.verts", "Resources/Shaders/simple.frags");
+	//m_PROGRAMS["SIMPLE_BLINN"] = ShaderLoader::CreateProgram("Resources/Shaders/simpleBlinnPhong.verts", "Resources/Shaders/simpleBlinnPhong.frags");
+	//m_PROGRAMS["SIMPLE_RIM"] = ShaderLoader::CreateProgram("Resources/Shaders/simpleRim.verts", "Resources/Shaders/simpleRim.frags");
+	//m_PROGRAMS["SPHERE_BLINN"] = ShaderLoader::CreateProgram("Resources/Shaders/sphereBlinnPhong.verts", "Resources/Shaders/sphereBlinnPhong.frags");
+	//m_PROGRAMS["SPHERE_RIM"] = ShaderLoader::CreateProgram("Resources/Shaders/sphereRim.verts", "Resources/Shaders/sphereRim.frags");
+	//m_PROGRAMS["SPHERE_RIMBLUE"] = ShaderLoader::CreateProgram("Resources/Shaders/sphereRimBlue.verts", "Resources/Shaders/sphereRimBlue.frags");
+	//m_PROGRAMS["SPHERE_REFLECT"] = ShaderLoader::CreateProgram("Resources/Shaders/reflectiveSphere.verts", "Resources/Shaders/reflectiveSphere.frags");
+	//m_PROGRAMS["CUBEMAP"] = ShaderLoader::CreateProgram("Resources/Shaders/cubeMap.verts", "Resources/Shaders/cubeMap.frags");
+	//m_PROGRAMS["MODEL"] = ShaderLoader::CreateProgram("Resources/Shaders/model.verts", "Resources/Shaders/model.frags");
+	//m_PROGRAMS["TEXT"] = ShaderLoader::CreateProgram("Resources/Shaders/text.verts", "Resources/Shaders/text.frags");
+	//m_PROGRAMS["STENCIL"] = ShaderLoader::CreateProgram("Resources/Shaders/simple.verts", "Resources/Shaders/stencil.frags");
+	//m_PROGRAMS["FOG"] = ShaderLoader::CreateProgram("Resources/Shaders/simpleBlinnPhong.verts", "Resources/Shaders/simpleBlinnPhongFOG.frags");
+	//m_PROGRAMS["HEIGHTMAP"] = ShaderLoader::CreateProgram("Resources/Shaders/heightmap.verts", "Resources/Shaders/heightmap.frags");
+	////m_PROGRAMS["TEST"] = ShaderLoader::CreateProgram("Resources/Shaders/test.verts", "Resources/Shaders/test.frags");
+	//m_PROGRAMS["GEOMETRY"] = ShaderLoader::CreateProgram("Resources/Shaders/geometry.verts", "Resources/Shaders/geometry.frags", "Resources/Shaders/geometry.geoms");
+	//m_PROGRAMS["TESSELATION"] = ShaderLoader::CreateProgram(
+	//	"Resources/Shaders/tesselation.verts",
+	//	"Resources/Shaders/tesselation.frags",
+	//	"Resources/Shaders/tesselation.tcs",
+	//	"Resources/Shaders/tesselation.tes");
 	m_PROGRAMS["SPHERE_COLOR"] = ShaderLoader::CreateProgram("Resources/Shaders/sphereBlinnPhong.verts", "Resources/Shaders/sphereColor.frags");
 	m_PROGRAMS["LINE"] = ShaderLoader::CreateProgram("Resources/Shaders/line.verts", "Resources/Shaders/line.frags");
 

@@ -28,6 +28,7 @@ GLuint ShaderLoader::CreateProgram(const char* vertexShaderFilename, const char*
 		PrintErrorDetails(false, program, programName.c_str());
 		return 0;
 	}
+
 	return program;
 }
 
