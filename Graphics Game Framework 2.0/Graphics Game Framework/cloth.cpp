@@ -22,33 +22,26 @@ void CCloth::Release()
 
 void CCloth::SlideRings(float _delta)
 {
+	float minDistanceBetweenRings = 0.5f;
 	if (!released)
 	{
 		// making the upper row static
 		for (int i = 1; i < numHorizontalParticles; i++)
 		{
-			getParticle(i, 0)->offsetPos(glm::vec3(getParticle(i, 0)->getPos().x + _delta, getParticle(i,0)->getPos().y, getParticle(i, 0)->getPos().z));
+			float distanceBetweenRing = 0.0f;
+			if (i - 2 > 0)
+			{
+				distanceBetweenRing = glm::distance(getParticle(i, 0)->getPos(), getParticle(i - 2, 0)->getPos());
+			}
+			
+			if (!getParticle(i, 0)->GetMovable() && distanceBetweenRing > minDistanceBetweenRings)
+			getParticle(i, 0)->setPos(glm::vec3(getParticle(i, 0)->getPos().x + _delta, getParticle(i,0)->getPos().y, getParticle(i, 0)->getPos().z));
 		}
 	}
 }
 
 void CCloth::timeStep()
 {
-	//std::vector<CConstraint>::iterator constraint;
-	//for (int i = 0; i < CONSTRAINT_ITERATIONS; i++) // iterate over all constraints several times
-	//{
-	//	for (constraint = constraints.begin(); constraint != constraints.end(); constraint++)
-	//	{
-	//		(*constraint).satisfyConstraint(); // satisfy constraint.
-	//	}
-	//}
-
-	//std::vector<CPoint>::iterator particle;
-	//for (particle = points.begin(); particle != points.end(); particle++)
-	//{
-	//	(*particle).timeStep(); // calculate the position of each particle at the next time step.
-	//}
-
 	for (int i = 0; i < CONSTRAINT_ITERATIONS; i++) // iterate over all constraints several times
 	{
 		for (auto &constraint : constraints)
@@ -65,12 +58,6 @@ void CCloth::timeStep()
 
 void CCloth::addForce(const glm::vec3 direction)
 {
-	//std::vector<CPoint>::iterator particle;
-	//for (particle = points.begin(); particle != points.end(); particle++)
-	//{
-	//	(*particle).addForce(direction); // add the forces to each particle
-	//}
-
 	for (auto &point : points)
 	{
 		point.addForce(direction);

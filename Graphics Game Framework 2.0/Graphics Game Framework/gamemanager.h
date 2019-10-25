@@ -126,8 +126,6 @@ private:
 
 	CCloth m_cloth;
 	
-
-
 	// MOUSE PICKING
 	glm::vec3 rayDirection;
 	float mouseY;
