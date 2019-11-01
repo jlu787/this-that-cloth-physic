@@ -59,7 +59,9 @@ void CGame::Initialise()
 	//	"Resources/Shaders/tesselation.tcs",
 	//	"Resources/Shaders/tesselation.tes");
 	m_PROGRAMS["SPHERE_COLOR"] = ShaderLoader::CreateProgram("Resources/Shaders/sphereBlinnPhong.verts", "Resources/Shaders/sphereColor.frags");
-	m_PROGRAMS["LINE"] = ShaderLoader::CreateProgram("Resources/Shaders/line.verts", "Resources/Shaders/line.frags");
+	//m_PROGRAMS["LINE"] = ShaderLoader::CreateProgram("Resources/Shaders/line.verts", "Resources/Shaders/line.frags");
+	m_PROGRAMS["LINE"] = ShaderLoader::CreateProgram("Resources/Shaders/newLine.verts", "Resources/Shaders/newLine.frags",	"Resources/Shaders/newLine.geoms");
+
 
 	// LOAD TEXTURES
 	m_TEXTURES["RAYMAN"] = Utils::loadTexture("Resources/Textures/Rayman.jpg");
