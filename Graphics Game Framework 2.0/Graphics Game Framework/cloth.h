@@ -45,17 +45,17 @@ public:
 			}
 		}
 
-		// Connecting secondary neighbors with constraints (distance 2 and sqrt(4) in the grid)
-		for (int x = 0; x < num_particles_width; x++)
-		{
-			for (int y = 0; y < num_particles_height; y++)
-			{
-				if (x < num_particles_width - 2) makeConstraint(getParticle(x, y), getParticle(x + 2, y), false);
-				if (y < num_particles_height - 2) makeConstraint(getParticle(x, y), getParticle(x, y + 2), false);
-				if (x < num_particles_width - 2 && y < num_particles_height - 2) makeConstraint(getParticle(x, y), getParticle(x + 2, y + 2), false);
-				if (x < num_particles_width - 2 && y < num_particles_height - 2) makeConstraint(getParticle(x + 2, y), getParticle(x, y + 2), false);
-			}
-		}
+		//// Connecting secondary neighbors with constraints (distance 2 and sqrt(4) in the grid)
+		//for (int x = 0; x < num_particles_width; x++)
+		//{
+		//	for (int y = 0; y < num_particles_height; y++)
+		//	{
+		//		if (x < num_particles_width - 2) makeConstraint(getParticle(x, y), getParticle(x + 2, y), false);
+		//		if (y < num_particles_height - 2) makeConstraint(getParticle(x, y), getParticle(x, y + 2), false);
+		//		if (x < num_particles_width - 2 && y < num_particles_height - 2) makeConstraint(getParticle(x, y), getParticle(x + 2, y + 2), false);
+		//		if (x < num_particles_width - 2 && y < num_particles_height - 2) makeConstraint(getParticle(x + 2, y), getParticle(x, y + 2), false);
+		//	}
+		//}
 
 		// making the upper row static
 		for (int i = 0; i < num_particles_width; i++)
@@ -64,6 +64,11 @@ public:
 			{
 				getParticle(0 + i, 0)->SetMovable(false);
 			}
+		}
+
+		for (int i = 400; i < 485; i++)
+		{
+			constraints[i].p1 = nullptr;
 		}
 
 		// TOP LEFT AND TOP RIGHT STATIC
