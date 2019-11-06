@@ -66,6 +66,11 @@ public:
 			}
 		}
 
+	/*	for (int i = 0; i < constraints.size(); i++)
+		{
+			constraints[i].p1 = nullptr;
+		}*/
+
 		for (int i = 400; i < 485; i++)
 		{
 			constraints[i].p1 = nullptr;

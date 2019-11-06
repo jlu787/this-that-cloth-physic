@@ -81,6 +81,10 @@ void CConstraint::satisfyConstraint()
 			m_line.m_pos2 = p2->getPos();
 		}
 	}
+	else
+	{
+		shouldRender = false;
+	}
 
 
 
