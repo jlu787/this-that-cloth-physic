@@ -66,15 +66,15 @@ public:
 			}
 		}
 
-	/*	for (int i = 0; i < constraints.size(); i++)
-		{
-			constraints[i].p1 = nullptr;
-		}*/
+		//for (int i = 0; i < constraints.size(); i++)
+		//{
+		//	constraints[i].p1 = nullptr;
+		//}
 
-		for (int i = 400; i < 485; i++)
-		{
-			constraints[i].p1 = nullptr;
-		}
+		//for (int i = 400; i < 485; i++)
+		//{
+		//	constraints[i].p1 = nullptr;
+		//}
 
 		// TOP LEFT AND TOP RIGHT STATIC
 		//getParticle(0, 0)->offsetPos(glm::vec3(-0.5, 0.0, 0.0));
@@ -108,17 +108,17 @@ public:
 
 	void Render(CCamera* _camera);
 
-private:
-
-	int numHorizontalParticles; 
+	int numHorizontalParticles;
 	int numVerticalParticles;
 
 	std::vector<CPoint> points; // all particles that are part of this cloth
 	std::vector<CConstraint> constraints; // all constraints between points as part of this cloth
 
 	CPoint* getParticle(int x, int y) { return &points[y*numHorizontalParticles + x]; }
-	void makeConstraint(CPoint *p1, CPoint *p2, bool _shouldRender) { constraints.push_back(CConstraint(p1, p2, m_lineProgram, _shouldRender)); }
 
+private:
+
+	void makeConstraint(CPoint *p1, CPoint *p2, bool _shouldRender) { constraints.push_back(CConstraint(p1, p2, m_lineProgram, _shouldRender)); }
 
 	/*  
 	calculate normal vector of the triangle defined by the position of the particles p1, p2, and p3.

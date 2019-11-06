@@ -226,12 +226,19 @@ void CGame::Update()
 
 	mouseX = m_inputController.getMouseXWindow();
 	mouseY = m_inputController.getMouseYWindow();
+	std::cout << "MouseX = " << mouseX <<  std::endl;
+	std::cout << "MouseY = " << mouseY <<  std::endl;
 
-	//testCube.setPosX(m_camera.getCamPos().x);
-	//testCube.setPosY(m_camera.getCamPos().y);
-	//testCube.setPosZ(m_camera.getCamPos().z + 5.0f);
 
-	//bool test = UpdateMousePicking(&zoomIn) && m_inputController.MouseState[0] == INPUT_DOWN_FIRST;
+	//check mouse picking
+	for (auto it = m_cloth.points.begin(); it != m_cloth.points.end(); it++)
+	{
+		if (UpdateMousePicking(&(*it).m_sphere) == true)
+		{
+			std::cout << "OOH YOU TOUCHIE TOUCHIE" << std::endl;
+		}
+	}
+
 
 	//std::cout << "CLICKING LEFT " + test << std::endl;
 
@@ -301,76 +308,71 @@ void CGame::ShutDown()
 bool CGame::UpdateMousePicking(CShape* _object)
 {
 	// screen pos
-	glm::vec2 normalizedScreenPos = glm::vec2(mouseX, mouseY);
-
+	glm::vec2 normalizedScreenPos = m_inputController.GetMouseNDC();
+	
 	// screenpos to Proj Space
 	glm::vec4 clipCoords = glm::vec4(normalizedScreenPos.x, normalizedScreenPos.y, -1.0f, 1.0f);
 
 	// Proj Space to eye space
-	glm::mat4 invProjMat = glm::inverse(m_canvas.getProjMat());
+	glm::mat4 invProjMat = glm::inverse(m_camera.getProjMat());
 	glm::vec4 eyeCoords = invProjMat * clipCoords;
 	eyeCoords = glm::vec4(eyeCoords.x, eyeCoords.y, -1.0f, 0.0f);
 
 	// eyespace to world space
-	glm::mat4 invViewMat = glm::inverse(m_canvas.getViewMat());
+	glm::mat4 invViewMat = glm::inverse(m_camera.getViewMat());
 	glm::vec4 rayWorld = invViewMat * eyeCoords;
 	rayDirection = glm::normalize(glm::vec3(rayWorld));
 
 	// code to check intersection with other objects
 	// SPHERE
-	//float radius = _object->getScaleX();
-	//glm::vec3 v = glm::vec3(_object->getPosX(), _object->getPosY(), _object->getPosZ()) - m_canvas.getCamPos();
+	float radius = _object->getScaleX();
+	glm::vec3 v = _object->getPos() - m_camera.getCamPos();
+	
 
-	//float a = glm::dot(rayDirection, rayDirection);
-	//float b = 2 * glm::dot(v, rayDirection);
-	//float c = glm::dot(v, v) - radius * radius;
-	//float d = b * b - 4 * a*c;
+	float a = glm::dot(rayDirection, rayDirection);
+	float b = 2 * glm::dot(v, rayDirection);
+	float c = glm::dot(v, v) - radius * radius;
+	float d = b * b - 4 * a*c;
 
-	//if (d > 0)
-	//{
-	//	float x1 = (-b - sqrt(d)) / 2;
-	//	float x2 = (-b + sqrt(d)) / 2;
-	//	if (x1 >= 0 && x2 >= 0) return true; // intersects
-	//	if (x1 < 0 && x2 >= 0) return true; // intersects
-	//}
-	//else if (d <= 0)
-	//{
-	//	return false; // no intersection
-	//}
+	if (d > 0)
+	{
+		float x1 = (-b - sqrt(d)) / 2;
+		float x2 = (-b + sqrt(d)) / 2;
+		if (x1 >= 0 && x2 >= 0) return true; // intersects
+		if (x1 < 0 && x2 >= 0) return true; // intersects
+	}
+	else if (d <= 0)
+	{
+		return false; // no intersection
+	}
 
-	// CUBE
-	float tmin = ((_object->getPosX() - _object->getScaleX()) - m_canvas.getCamPos().x) / rayDirection.x;
-	float tmax = ((_object->getPosX() + _object->getScaleX()) - m_canvas.getCamPos().x) / rayDirection.x;
+	//// CUBE
+	//float tmin = ((_object->getPosX() - _object->getScaleX()) - m_canvas.getCamPos().x) / rayDirection.x;
+	//float tmax = ((_object->getPosX() + _object->getScaleX()) - m_canvas.getCamPos().x) / rayDirection.x;
 
-	if (tmin > tmax) swap(tmin, tmax);
+	//if (tmin > tmax) swap(tmin, tmax);
 
-	float tymin = ((_object->getPosY() - _object->getScaleY()) - m_canvas.getCamPos().y) / rayDirection.y;
-	float tymax = ((_object->getPosY() + _object->getScaleY()) - m_canvas.getCamPos().y) / rayDirection.y;
+	//float tymin = ((_object->getPosY() - _object->getScaleY()) - m_canvas.getCamPos().y) / rayDirection.y;
+	//float tymax = ((_object->getPosY() + _object->getScaleY()) - m_canvas.getCamPos().y) / rayDirection.y;
 
-	if (tymin > tymax) swap(tymin, tymax);
+	//if (tymin > tymax) swap(tymin, tymax);
 
-	if ((tmin > tymax) || (tymin > tmax))
-		return false;
+	//if ((tmin > tymax) || (tymin > tmax))
+	//	return false;
 
-	if (tymin > tmin)
-		tmin = tymin;
+	//if (tymin > tmin)
+	//	tmin = tymin;
 
-	if (tymax < tmax)
-		tmax = tymax;
+	//if (tymax < tmax)
+	//	tmax = tymax;
 
-	float tzmin = ((_object->getPosZ() - _object->getScaleZ()) - m_canvas.getCamPos().z) / rayDirection.z;
-	float tzmax = ((_object->getPosZ() + _object->getScaleZ()) - m_canvas.getCamPos().z) / rayDirection.z;
+	//float tzmin = ((_object->getPosZ() - _object->getScaleZ()) - m_canvas.getCamPos().z) / rayDirection.z;
+	//float tzmax = ((_object->getPosZ() + _object->getScaleZ()) - m_canvas.getCamPos().z) / rayDirection.z;
 
-	if (tzmin > tzmax) swap(tzmin, tzmax);
+	//if (tzmin > tzmax) swap(tzmin, tzmax);
 
-	if ((tmin > tzmax) || (tzmin > tmax))
-		return false;
-
-	/*if (tzmin > tmin)
-		tmin = tzmin;
-
-	if (tzmax < tmax)
-		tmax = tzmax;*/
+	//if ((tmin > tzmax) || (tzmin > tmax))
+	//	return false;
 
 	return true;
 }
