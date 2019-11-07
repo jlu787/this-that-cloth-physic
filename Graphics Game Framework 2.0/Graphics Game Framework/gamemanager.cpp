@@ -44,7 +44,7 @@ void CGame::Initialise()
 	//m_PROGRAMS["SPHERE_BLINN"] = ShaderLoader::CreateProgram("Resources/Shaders/sphereBlinnPhong.verts", "Resources/Shaders/sphereBlinnPhong.frags");
 	//m_PROGRAMS["SPHERE_RIM"] = ShaderLoader::CreateProgram("Resources/Shaders/sphereRim.verts", "Resources/Shaders/sphereRim.frags");
 	//m_PROGRAMS["SPHERE_RIMBLUE"] = ShaderLoader::CreateProgram("Resources/Shaders/sphereRimBlue.verts", "Resources/Shaders/sphereRimBlue.frags");
-	//m_PROGRAMS["SPHERE_REFLECT"] = ShaderLoader::CreateProgram("Resources/Shaders/reflectiveSphere.verts", "Resources/Shaders/reflectiveSphere.frags");
+	m_PROGRAMS["SPHERE_REFLECT"] = ShaderLoader::CreateProgram("Resources/Shaders/reflectiveSphere.verts", "Resources/Shaders/reflectiveSphere.frags");
 	//m_PROGRAMS["CUBEMAP"] = ShaderLoader::CreateProgram("Resources/Shaders/cubeMap.verts", "Resources/Shaders/cubeMap.frags");
 	//m_PROGRAMS["MODEL"] = ShaderLoader::CreateProgram("Resources/Shaders/model.verts", "Resources/Shaders/model.frags");
 	//m_PROGRAMS["TEXT"] = ShaderLoader::CreateProgram("Resources/Shaders/text.verts", "Resources/Shaders/text.frags");
@@ -72,7 +72,8 @@ void CGame::Initialise()
 
 	//m_audio.playSound("BACKGROUND");
 
-	//m_reflectiveSphere.initialise(m_PROGRAMS["SPHERE_REFLECT"], m_TEXTURES["RAYMAN"], 0.0f, 0.0f, 1.0f);
+	m_reflectiveSphere.initialise(m_PROGRAMS["SPHERE_REFLECT"], m_TEXTURES["RAYMAN"], 0.0f, 0.0f, 1.0f);
+	m_reflectiveSphere.setCamera(&m_camera);
 	////m_floor = CQuad();
 	//m_floor.initialise(m_PROGRAMS["FOG"], m_TEXTURES["RAYMAN"], 0.0f, 0.0f, 5.0f);
 	//m_floor.setRotX(-90.0f);
@@ -81,7 +82,7 @@ void CGame::Initialise()
 	////testQuad.setPosZ(-0.01f)
 	//m_water.setRotX(-90.0f);
 	//m_water.setRotZ(45.0f);
-	//m_cubeMap = CCubeMap(&m_camera);
+	m_cubeMap = CCubeMap(&m_camera);
 	//testCube.initialise(m_PROGRAMS["FOG"], m_TEXTURES["UNIMPRESSED"], 0.0f, 0.0f, 0.0f, 1.0f);
 	//testCube.setRotX(30.0f);
 	//testCube.setRotY(50.0f);
@@ -119,12 +120,12 @@ void CGame::Render()
 	//glPolygonMode(GL_FRONT, GL_LINE);
 
 	m_cloth.addForce(glm::vec3(0, -0.2, 0)*(float)(TIME_STEP)); // add gravity each frame, pointing down
-	m_cloth.windForce(glm::vec3(0.0, 0, 0.1)*(float)(TIME_STEP)); // generate some wind each frame
+	m_cloth.windForce(glm::vec3(0.0, 0, -0.1)*(float)(TIME_STEP)); // generate some wind each frame
 	m_cloth.timeStep(); // calculate the particle positions of the next frame	
 	m_cloth.GroundCheck();
 	
-	//m_cubeMap.Render();
-	//m_reflectiveSphere.Render(&m_camera, m_cubeMap.getTexID());
+	m_cubeMap.Render();
+	m_reflectiveSphere.Render(&m_camera, m_cubeMap.getTexID());
 	//m_floor.Render(&m_camera);
 	//m_water.Render(&m_camera);
 
@@ -161,7 +162,7 @@ void CGame::Update()
 {
 	ProcessDeltaTime();
 	
-	//m_cubeMap.Update();
+	m_cubeMap.Update();
 	m_camera.Update(deltaTime);
 	//m_cloth.Update(deltaTime);
 
@@ -229,6 +230,52 @@ void CGame::Update()
 	std::cout << "MouseX = " << mouseX <<  std::endl;
 	std::cout << "MouseY = " << mouseY <<  std::endl;
 
+	
+	// test the gluUnproject
+	if (m_inputController.MouseState[0] == INPUT_DOWN)
+	{
+		////glm::mat4 modelView = m_reflectiveSphere.getModelMatrix();
+
+		//int viewport[4];
+		//double modelView[16];
+		//double projection[16];
+
+		//double posX, posY, posZ;
+
+		//glGetDoublev(GL_MODELVIEW_MATRIX, modelView);
+		//glGetDoublev(GL_PROJECTION_MATRIX, projection);
+		//glGetIntegerv(GL_VIEWPORT, viewport);
+
+		//glGetDoublev(GL_MODELVIEW_MATRIX, modelView);
+		//gluProject(m_inputController.GetMouseNDC().x, m_inputController.GetMouseNDC().y, 0.0, modelView, projection, viewport, &posX, &posY, &posZ);
+
+		//m_reflectiveSphere.setPos(glm::vec3(posX, posY, posZ));
+
+		// screen pos
+		glm::vec2 normalizedScreenPos = m_inputController.GetMouseNDC();
+
+		// screenpos to Proj Space
+		glm::vec4 clipCoords = glm::vec4(normalizedScreenPos.x, normalizedScreenPos.y, -1.0f, 1.0f);
+
+		// Proj Space to eye space
+		glm::mat4 invProjMat = glm::inverse(m_camera.getProjMat());
+		glm::vec4 eyeCoords = invProjMat * clipCoords;
+		eyeCoords = glm::vec4(eyeCoords.x, eyeCoords.y, -1.0f, 0.0f);
+
+		// eyespace to world space
+		glm::mat4 invViewMat = glm::inverse(m_camera.getViewMat());
+		glm::vec4 rayWorld = invViewMat * eyeCoords;
+		//rayDirection = glm::normalize(glm::vec3(rayWorld));
+
+		glm::vec3 newPos = glm::vec3(eyeCoords);
+		newPos.z = 0;
+
+		m_reflectiveSphere.setPos(m_reflectiveSphere.getPos() + newPos);
+		//m_reflectiveSphere.setPos(newPos);
+
+	}
+
+
 
 	//check mouse picking
 	for (auto it = m_cloth.points.begin(); it != m_cloth.points.end(); it++)
@@ -236,6 +283,8 @@ void CGame::Update()
 		if (UpdateMousePicking(&(*it).m_sphere) == true)
 		{
 			std::cout << "OOH YOU TOUCHIE TOUCHIE" << std::endl;
+
+			/*gluUnProject(m_inputController.getMouseXWindow(), m_inputController.getMouseYWindow(), 0.0*/
 		}
 	}
 

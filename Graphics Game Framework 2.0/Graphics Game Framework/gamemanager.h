@@ -113,9 +113,9 @@ private:
 	//TessModel m_tesselatedModel;
 
 
-	/*CReflectiveSphere m_reflectiveSphere;
+	CReflectiveSphere m_reflectiveSphere;
 	CCubeMap m_cubeMap;
-	CQuad m_floor;
+	/*CQuad m_floor;
 	CQuad m_water;
 	CCube testCube;
 	CCube m_stencilCube;*/

@@ -20,6 +20,9 @@ public:
 	float getRotX();
 	float getRotY();
 	float getRotZ();
+	glm::mat4 getModelMatrix();
+	glm::mat4 m_model;
+	CCamera* getCamera() { return m_camera; }
 	
 	bool getActive();
 
@@ -37,6 +40,9 @@ public:
 	void setActive(bool _b);
 	void setProgram(GLuint _program) { m_program = _program; }
 	void setTexture(GLuint _texture) { m_tex = _texture; }
+
+	void setCamera(CCamera* _camera) { m_camera = _camera; }
+
 
 	virtual void Render(CCamera* _gameCam) = 0;
 
@@ -60,6 +66,8 @@ protected:
 	GLuint m_tex;
 
 	bool m_active;
+
+	CCamera* m_camera;
 
 private:
 };

@@ -58,10 +58,10 @@ void CCloth::timeStep()
 
 void CCloth::addForce(const glm::vec3 direction)
 {
-	/*for (auto &point : points)
+	for (auto &point : points)
 	{
 		point.addForce(direction);
-	}*/
+	}
 }
 
 void CCloth::windForce(const glm::vec3 direction)
@@ -107,10 +107,10 @@ glm::vec3 CCloth::calcTriangleNormal(CPoint * p1, CPoint * p2, CPoint * p3)
 
 void CCloth::addWindForcesForTriangle(CPoint * p1, CPoint * p2, CPoint * p3, const glm::vec3 direction)
 {
-	/*glm::vec3 normal = calcTriangleNormal(p1, p2, p3);
+	glm::vec3 normal = calcTriangleNormal(p1, p2, p3);
 	glm::vec3 d = glm::normalize(normal);
 	glm::vec3 force = normal * glm::dot(d, direction);
 	p1->addForce(force);
 	p2->addForce(force);
-	p3->addForce(force);*/
+	p3->addForce(force);
 }
