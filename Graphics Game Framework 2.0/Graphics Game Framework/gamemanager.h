@@ -130,6 +130,13 @@ private:
 	glm::vec3 rayDirection;
 	float mouseY;
 	float mouseX;
+	float lastMouseY;
+	float lastMouseX;
 	bool UpdateMousePicking(CShape * _object);
 
+	void DragObject(CShape * _object);
+
+
+	glm::vec2 mousePos;
+	glm::vec2 mousePosLastFrame;
 };

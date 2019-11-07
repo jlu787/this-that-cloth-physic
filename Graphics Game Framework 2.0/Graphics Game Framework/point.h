@@ -7,7 +7,7 @@ class CPoint
 public:
 	CPoint(glm::vec3 pos, GLuint _program, GLuint _texture) : pos(pos), old_pos(pos), acceleration(glm::vec3(0, 0, 0)), mass(1), movable(true)/*, accumulated_normal(glm::vec3(0, 0, 0))*/
 	{
-		m_sphere.initialise(_program, _texture, 0, 0, 0.1f);
+		m_sphere.initialise(_program, _texture, 0, 0, SPHERE_SCALE);
 		m_sphere.setPos(pos);
 	}
 	CPoint() {};
@@ -29,6 +29,8 @@ public:
 
 	void SetMovable(bool _b) { movable = _b; }
 	bool GetMovable() { return movable; }
+
+	bool beingDragged = false;
 
 private:
 	bool movable; // can the particle move or not ? used to pin parts of the cloth

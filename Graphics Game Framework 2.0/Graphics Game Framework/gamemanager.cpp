@@ -225,72 +225,133 @@ void CGame::Update()
 	//}
 
 
-	mouseX = m_inputController.getMouseXWindow();
-	mouseY = m_inputController.getMouseYWindow();
-	std::cout << "MouseX = " << mouseX <<  std::endl;
-	std::cout << "MouseY = " << mouseY <<  std::endl;
+	//mouseX = m_inputController.getMouseXWindow();
+	//mouseY = m_inputController.getMouseYWindow();
+
+	mousePos = m_inputController.GetMouseNDC();
+	/*std::cout << "MouseX = " << mouseX <<  std::endl;
+	std::cout << "MouseY = " << mouseY <<  std::endl;*/
 
 	
-	// test the gluUnproject
-	if (m_inputController.MouseState[0] == INPUT_DOWN)
-	{
-		////glm::mat4 modelView = m_reflectiveSphere.getModelMatrix();
+	//// test the gluUnproject
+	//if (m_inputController.MouseState[0] == INPUT_DOWN)
 
-		//int viewport[4];
-		//double modelView[16];
-		//double projection[16];
+	//	// *************** gluUNPROJECT************
+	//{
+	//	////glm::mat4 modelView = m_reflectiveSphere.getModelMatrix();
 
-		//double posX, posY, posZ;
+	//	//int viewport[4];
+	//	//double modelView[16];
+	//	//double projection[16];
 
-		//glGetDoublev(GL_MODELVIEW_MATRIX, modelView);
-		//glGetDoublev(GL_PROJECTION_MATRIX, projection);
-		//glGetIntegerv(GL_VIEWPORT, viewport);
+	//	//double posX, posY, posZ;
 
-		//glGetDoublev(GL_MODELVIEW_MATRIX, modelView);
-		//gluProject(m_inputController.GetMouseNDC().x, m_inputController.GetMouseNDC().y, 0.0, modelView, projection, viewport, &posX, &posY, &posZ);
+	//	//glGetDoublev(GL_MODELVIEW_MATRIX, modelView);
+	//	//glGetDoublev(GL_PROJECTION_MATRIX, projection);
+	//	//glGetIntegerv(GL_VIEWPORT, viewport);
 
-		//m_reflectiveSphere.setPos(glm::vec3(posX, posY, posZ));
+	//	//glGetDoublev(GL_MODELVIEW_MATRIX, modelView);
+	//	//gluProject(m_inputController.GetMouseNDC().x, m_inputController.GetMouseNDC().y, 0.0, modelView, projection, viewport, &posX, &posY, &posZ);
 
-		// screen pos
-		glm::vec2 normalizedScreenPos = m_inputController.GetMouseNDC();
+	//	//m_reflectiveSphere.setPos(glm::vec3(posX, posY, posZ));
 
-		// screenpos to Proj Space
-		glm::vec4 clipCoords = glm::vec4(normalizedScreenPos.x, normalizedScreenPos.y, -1.0f, 1.0f);
+	//	// *************** PROJECTING NDC TO WORLD SPACE *************
 
-		// Proj Space to eye space
-		glm::mat4 invProjMat = glm::inverse(m_camera.getProjMat());
-		glm::vec4 eyeCoords = invProjMat * clipCoords;
-		eyeCoords = glm::vec4(eyeCoords.x, eyeCoords.y, -1.0f, 0.0f);
+	//	//// screen pos
+	//	//glm::vec2 normalizedScreenPos = m_inputController.GetMouseNDC();
 
-		// eyespace to world space
-		glm::mat4 invViewMat = glm::inverse(m_camera.getViewMat());
-		glm::vec4 rayWorld = invViewMat * eyeCoords;
-		//rayDirection = glm::normalize(glm::vec3(rayWorld));
+	//	//// screenpos to Proj Space
+	//	//glm::vec4 clipCoords = glm::vec4(normalizedScreenPos.x, normalizedScreenPos.y, -1.0f, 1.0f);
 
-		glm::vec3 newPos = glm::vec3(eyeCoords);
-		newPos.z = 0;
+	//	//// Proj Space to eye space
+	//	//glm::mat4 invProjMat = glm::inverse(m_camera.getProjMat());
+	//	//glm::vec4 eyeCoords = invProjMat * clipCoords;
+	//	//eyeCoords = glm::vec4(eyeCoords.x, eyeCoords.y, -1.0f, 0.0f);
 
-		m_reflectiveSphere.setPos(m_reflectiveSphere.getPos() + newPos);
-		//m_reflectiveSphere.setPos(newPos);
+	//	//// eyespace to world space
+	//	//glm::mat4 invViewMat = glm::inverse(m_camera.getViewMat());
+	//	//glm::vec4 rayWorld = invViewMat * eyeCoords;
+	//	////rayDirection = glm::normalize(glm::vec3(rayWorld));
 
-	}
+	//	//glm::vec3 newPos = glm::vec3(eyeCoords);
+	//	//newPos.z = 0;
+
+	//	//m_reflectiveSphere.setPos(m_reflectiveSphere.getPos() + newPos);
+	//	////m_reflectiveSphere.setPos(newPos);
+
+	//	// ******************* PROJECTING DELTA NDC TO WORLD SPACE **************
+
+	//		// screen pos
+	//	glm::vec2 normalizedScreenPos = mousePos - mousePosLastFrame;
+
+	//	// screenpos to Proj Space
+	//	glm::vec4 clipCoords = glm::vec4(normalizedScreenPos.x, normalizedScreenPos.y, -1.0f, 1.0f);
+
+	//	// Proj Space to eye space
+	//	glm::mat4 invProjMat = glm::inverse(m_camera.getProjMat());
+	//	glm::vec4 eyeCoords = invProjMat * clipCoords;
+	//	eyeCoords = glm::vec4(eyeCoords.x, eyeCoords.y, -1.0f, 0.0f);
+
+	//	// eyespace to world space
+	//	glm::mat4 invViewMat = glm::inverse(m_camera.getViewMat());
+	//	glm::vec4 rayWorld = invViewMat * eyeCoords;
+	//	//rayDirection = glm::normalize(glm::vec3(rayWorld));
+
+	//	glm::vec3 newPos = glm::vec3(rayWorld);
+	//	newPos = glm::normalize(newPos) * glm::distance(m_reflectiveSphere.getPos(), m_camera.getCamPos());
+	//	newPos.z = 0;
+
+	//	m_reflectiveSphere.setPos(m_reflectiveSphere.getPos() + newPos);
+	//	//m_reflectiveSphere.setPos(newPos);
+	//}
 
 
 
 	//check mouse picking
 	for (auto it = m_cloth.points.begin(); it != m_cloth.points.end(); it++)
 	{
-		if (UpdateMousePicking(&(*it).m_sphere) == true)
+		if (UpdateMousePicking(&(*it).m_sphere) == true && m_inputController.MouseState[0] == INPUT_DOWN_FIRST)
 		{
 			std::cout << "OOH YOU TOUCHIE TOUCHIE" << std::endl;
+			(*it).beingDragged = true;
+			//if (m_inputController.MouseState[0] == INPUT_DOWN)
+			
+		}
 
-			/*gluUnProject(m_inputController.getMouseXWindow(), m_inputController.getMouseYWindow(), 0.0*/
+		if ((*it).beingDragged)
+		{
+			DragObject(&(*it).m_sphere);
+			(*it).setPos((*it).m_sphere.getPos());
+		}
+	}
+
+	// reset all points to not being dragged if mouse is up
+	if (m_inputController.MouseState[0] == INPUT_UP_FIRST)
+	{
+		for (auto &point : m_cloth.points)
+		{
+			if (point.beingDragged) point.beingDragged = false;
 		}
 	}
 
 
+	//if (m_inputController.MouseState[0] == INPUT_DOWN)
+	//{
+	//	DragObject(&m_cloth.points[1].m_sphere);
+
+	//}
+
+
+	std::cout << "deltaX = " << (mousePos - mousePosLastFrame).x << std::endl;
+	std::cout << "deltaY = " << (mousePos - mousePosLastFrame).y << std::endl;
+
 	//std::cout << "CLICKING LEFT " + test << std::endl;
 
+	lastMouseX = mouseX;
+	lastMouseY = mouseY;
+
+
+	mousePosLastFrame = mousePos;
 	m_inputController.ProcessInput();
 }
 
@@ -374,7 +435,8 @@ bool CGame::UpdateMousePicking(CShape* _object)
 
 	// code to check intersection with other objects
 	// SPHERE
-	float radius = _object->getScaleX();
+	//float radius = _object->getScaleX();
+	float radius = 0.5f; // keep at 0.5 for now
 	glm::vec3 v = _object->getPos() - m_camera.getCamPos();
 	
 
@@ -424,6 +486,31 @@ bool CGame::UpdateMousePicking(CShape* _object)
 	//	return false;
 
 	return true;
+}
+
+void CGame::DragObject(CShape* _object)
+{
+	// screen pos
+	glm::vec2 normalizedScreenPos = mousePos - mousePosLastFrame;
+
+	// screenpos to Proj Space
+	glm::vec4 clipCoords = glm::vec4(normalizedScreenPos.x, normalizedScreenPos.y, -1.0f, 1.0f);
+
+	// Proj Space to eye space
+	glm::mat4 invProjMat = glm::inverse(m_camera.getProjMat());
+	glm::vec4 eyeCoords = invProjMat * clipCoords;
+	eyeCoords = glm::vec4(eyeCoords.x, eyeCoords.y, -1.0f, 0.0f);
+
+	// eyespace to world space
+	glm::mat4 invViewMat = glm::inverse(m_camera.getViewMat());
+	glm::vec4 rayWorld = invViewMat * eyeCoords;
+	//rayDirection = glm::normalize(glm::vec3(rayWorld));
+
+	glm::vec3 newPos = glm::vec3(rayWorld);
+	newPos = glm::normalize(newPos) * glm::distance(_object->getPos(), m_camera.getCamPos());
+	newPos.z = 0;
+
+	_object->setPos(_object->getPos() + newPos);
 }
 
 
