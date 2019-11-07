@@ -58,23 +58,23 @@ void CCloth::timeStep()
 
 void CCloth::addForce(const glm::vec3 direction)
 {
-	//for (auto &point : points)
-	//{
-	//	point.addForce(direction);
-	//}
+	for (auto &point : points)
+	{
+		point.addForce(direction);
+	}
 }
 
 void CCloth::windForce(const glm::vec3 direction)
 {
-	//for (int x = 0; x < numHorizontalParticles - 1; x++)
-	//{
-	//	for (int y = 0; y < numVerticalParticles - 1; y++)
-	//	{
-	//		// adds wind force for 2 triangles making a quadrant of the cloth
-	//		addWindForcesForTriangle(getParticle(x + 1, y), getParticle(x, y), getParticle(x, y + 1), direction);
-	//		addWindForcesForTriangle(getParticle(x + 1, y + 1), getParticle(x + 1, y), getParticle(x, y + 1), direction);
-	//	}
-	//}
+	for (int x = 0; x < numHorizontalParticles - 1; x++)
+	{
+		for (int y = 0; y < numVerticalParticles - 1; y++)
+		{
+			// adds wind force for 2 triangles making a quadrant of the cloth
+			addWindForcesForTriangle(getParticle(x + 1, y), getParticle(x, y), getParticle(x, y + 1), direction);
+			addWindForcesForTriangle(getParticle(x + 1, y + 1), getParticle(x + 1, y), getParticle(x, y + 1), direction);
+		}
+	}
 }
 
 void CCloth::Render(CCamera * _camera)
