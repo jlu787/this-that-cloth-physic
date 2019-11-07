@@ -24,8 +24,8 @@ public:
 
 	~CConstraint()
 	{
-		/*	if (p1 != nullptr) delete p1;
-			if (p2 != nullptr) delete p2;*/
+		/*if (p1 != nullptr) delete p1;
+		if (p2 != nullptr) delete p2;*/
 	}
 
 	CLine m_line;

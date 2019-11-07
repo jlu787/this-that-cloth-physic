@@ -1,5 +1,11 @@
 #include "cloth.h"
 
+CCloth::~CCloth()
+{
+	points.clear();
+	constraints.clear();
+}
+
 void CCloth::GroundCheck()
 {
 	for (auto &point : points)
@@ -34,7 +40,12 @@ void CCloth::SlideRings(float _delta)
 				distanceBetweenRing = glm::distance(getParticle(i, 0)->getPos(), getParticle(i - 2, 0)->getPos());
 			}
 			
-			if (!getParticle(i, 0)->GetMovable() && distanceBetweenRing > minDistanceBetweenRings)
+			// stop it from sliding rings together if they are already close
+			if (distanceBetweenRing <= minDistanceBetweenRings && _delta <= 0)
+			{
+				// DO NOTHING
+			}
+			else if (!getParticle(i, 0)->GetMovable() /*&& distanceBetweenRing > minDistanceBetweenRings*/)
 			getParticle(i, 0)->setPos(glm::vec3(getParticle(i, 0)->getPos().x + _delta, getParticle(i,0)->getPos().y, getParticle(i, 0)->getPos().z));
 		}
 	}

@@ -88,7 +88,7 @@ void CConstraint::satisfyConstraint(bool _canBeTorn)
 		}
 		
 
-			// update the line positions if this a constraint we want to render
+		// update the line positions if this a constraint we want to render
 		if (shouldRender)
 		{
 			m_line.m_pos1 = p1->getPos();

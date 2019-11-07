@@ -10,7 +10,7 @@ class CCloth
 {
 public:
 	CCloth() {};
-
+	~CCloth();
 	CCloth(float width, float height, int num_particles_width, int num_particles_height, GLuint _lineProgram, GLuint _sphereProgram, GLuint _sphereTex) : numHorizontalParticles(num_particles_width), numVerticalParticles(num_particles_height)
 	{
 		m_lineProgram = _lineProgram;

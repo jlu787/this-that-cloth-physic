@@ -113,7 +113,8 @@ private:
 	//TessModel m_tesselatedModel;
 
 
-	CReflectiveSphere m_reflectiveSphere;
+	//CReflectiveSphere m_reflectiveSphere;
+	CSphere sphere;
 	CCubeMap m_cubeMap;
 	/*CQuad m_floor;
 	CQuad m_water;
@@ -124,7 +125,14 @@ private:
 	/*CCube zoomIn;
 	CCube zoomOut;*/
 
-	CCloth m_cloth;
+	CCloth* m_cloth;
+	float cloth_width = 20.0f;
+	float cloth_height = 20.0f;
+	int cloth_points_width = 20;
+	int cloth_points_height = 20;
+
+	const int min_width = 1;
+	const int min_height = 1;
 	
 	// MOUSE PICKING
 	glm::vec3 rayDirection;

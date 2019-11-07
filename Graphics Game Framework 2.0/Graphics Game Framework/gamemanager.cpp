@@ -72,8 +72,11 @@ void CGame::Initialise()
 
 	//m_audio.playSound("BACKGROUND");
 
-	m_reflectiveSphere.initialise(m_PROGRAMS["SPHERE_REFLECT"], m_TEXTURES["RAYMAN"], 0.0f, 0.0f, 1.0f);
-	m_reflectiveSphere.setCamera(&m_camera);
+	//m_reflectiveSphere.initialise(m_PROGRAMS["SPHERE_REFLECT"], m_TEXTURES["RAYMAN"], 0.0f, 0.0f, 1.0f);
+	//m_reflectiveSphere.setCamera(&m_camera);
+
+	sphere.initialise(m_PROGRAMS["SPHERE_COLOR"], m_TEXTURES["RAYMAN"], 10, 10, 4.0f);
+
 	////m_floor = CQuad();
 	//m_floor.initialise(m_PROGRAMS["FOG"], m_TEXTURES["RAYMAN"], 0.0f, 0.0f, 5.0f);
 	//m_floor.setRotX(-90.0f);
@@ -98,7 +101,7 @@ void CGame::Initialise()
 	//m_terrain = Terrain();
 	//m_terrain.initialise(m_PROGRAMS["HEIGHTMAP"], m_TEXTURES["RAYMAN"], 0.0f, 0.0f, 0.0f, 1.0f);
 	//m_cloth = CCloth(m_PROGRAMS["LINE"], m_PROGRAMS["SPHERE_COLOR"], m_TEXTURES["RAYMAN"], 20.0f, 20.0f, 20, 20, 0.01, 10.0f);
-	m_cloth = CCloth(20.0f, 20.0f, 20, 20, m_PROGRAMS["LINE"], m_PROGRAMS["SPHERE_COLOR"], m_TEXTURES["RAYMAN"]);
+	m_cloth = new CCloth(cloth_width, cloth_height, cloth_points_width, cloth_points_height, m_PROGRAMS["LINE"], m_PROGRAMS["SPHERE_COLOR"], m_TEXTURES["RAYMAN"]);
 
 
 	/*m_star = GeometryModel(m_PROGRAMS["GEOMETRY"]);
@@ -119,20 +122,21 @@ void CGame::Render()
 	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	//glPolygonMode(GL_FRONT, GL_LINE);
 
-	m_cloth.addForce(glm::vec3(0, -0.2, 0)*(float)(TIME_STEP)); // add gravity each frame, pointing down
-	m_cloth.windForce(glm::vec3(0.0, 0, -0.1)*(float)(TIME_STEP)); // generate some wind each frame
-	m_cloth.timeStep(); // calculate the particle positions of the next frame	
-	m_cloth.GroundCheck();
+	m_cloth->addForce(glm::vec3(0, -0.2, 0)*(float)(TIME_STEP)); // add gravity each frame, pointing down
+	m_cloth->windForce(glm::vec3(0.0, 0, -0.1)*(float)(TIME_STEP)); // generate some wind each frame
+	m_cloth->timeStep(); // calculate the particle positions of the next frame	
+	m_cloth->GroundCheck();
 	
 	m_cubeMap.Render();
-	m_reflectiveSphere.Render(&m_camera, m_cubeMap.getTexID());
+	sphere.Render(&m_camera);
+	//m_reflectiveSphere.Render(&m_camera, m_cubeMap.getTexID());
 	//m_floor.Render(&m_camera);
 	//m_water.Render(&m_camera);
 
 	//m_terrain.Render(&m_camera);
 	//m_star.Render(&m_camera);
 	//m_tesselatedModel.Render(&m_camera);
-	m_cloth.Render(&m_camera);
+	m_cloth->Render(&m_camera);
 
 	//// Stencil Buffer
 	//glEnable(GL_STENCIL_TEST);
@@ -164,8 +168,9 @@ void CGame::Update()
 	
 	m_cubeMap.Update();
 	m_camera.Update(deltaTime);
-	//m_cloth.Update(deltaTime);
+	//m_cloth->Update(deltaTime);
 
+	// MOVING CAMERA
 	if (m_inputController.KeyState['w'] == INPUT_DOWN)
 	{
 		m_camera.moveForward(deltaTime);
@@ -194,31 +199,118 @@ void CGame::Update()
 	// RELEASING
 	if (m_inputController.KeyState['1'] == INPUT_DOWN_FIRST)
 	{
-		m_cloth.Release();
+		m_cloth->Release();
 
 	}
 
 	// SLIDING RINGS
 	if (m_inputController.KeyState['j'] == INPUT_DOWN)
 	{
-		m_cloth.SlideRings(-0.5);
+		m_cloth->SlideRings(-0.5);
 	}
 	
 	if (m_inputController.KeyState['k'] == INPUT_DOWN)
 	{
-		m_cloth.SlideRings(0.5);
+		m_cloth->SlideRings(0.5);
 	}
 
-	// SWITCHING CAN BE TORN
+	// SWITCHING IF THE CLOTH CAN BE TORN OR NOT
 	if (m_inputController.KeyState['u'] == INPUT_DOWN_FIRST)
 	{
-		m_cloth.canBeTorn = !m_cloth.canBeTorn;
+		m_cloth->canBeTorn = !m_cloth->canBeTorn;
+	}
+
+	// ADDING POINTS VERTICALLY
+	if (m_inputController.KeyState['o'] == INPUT_DOWN_FIRST)
+	{
+		cloth_height++;
+		cloth_points_height++;
+		ResetGame();
+	}
+
+	// ADDING POINTS HORIZONTALLY
+	if (m_inputController.KeyState['p'] == INPUT_DOWN_FIRST)
+	{
+		cloth_width++;
+		cloth_points_width++;
+		ResetGame();
+	}
+
+	// REMOVING POINTS VERTICALLY
+	if (m_inputController.KeyState['l'] == INPUT_DOWN_FIRST)
+	{
+		if (cloth_height > min_height)
+		{
+			cloth_height--;
+			cloth_points_height--;
+			ResetGame();
+		}
+	}
+
+	// REMOVING POINTS HORIZONTALLY
+	if (m_inputController.KeyState[';'] == INPUT_DOWN_FIRST)
+	{
+		if (cloth_width > min_width)
+		{
+			cloth_width--;
+			cloth_points_width--;
+			ResetGame();
+		}
+	}
+
+	// MOVING THE SPHERE UP
+	if (m_inputController.KeyState['8'] == INPUT_DOWN)
+	{
+		sphere.setPosY(sphere.getPosY() + 20.0f * deltaTime);
+	}
+
+	// MOVING THE SPHERE DOWN
+	if (m_inputController.KeyState['2'] == INPUT_DOWN)
+	{
+		sphere.setPosY(sphere.getPosY() - 20.0f * deltaTime);
+	}
+
+	// MOVING THE SPHERE RIGHT
+	if (m_inputController.KeyState['6'] == INPUT_DOWN)
+	{
+		sphere.setPosX(sphere.getPosX() + 20.0f * deltaTime);
+	}
+
+	// MOVING THE SPHERE LEFT
+	if (m_inputController.KeyState['4'] == INPUT_DOWN)
+	{
+		sphere.setPosX(sphere.getPosX() - 20.0f * deltaTime);
+	}
+
+	// MOVING THE SPHERE FORWARD
+	if (m_inputController.KeyState['7'] == INPUT_DOWN)
+	{
+		sphere.setPosZ(sphere.getPosZ() - 20.0f * deltaTime);
+	}
+
+	// MOVING THE SPHERE BACK
+	if (m_inputController.KeyState['9'] == INPUT_DOWN)
+	{
+		sphere.setPosZ(sphere.getPosZ() + 20.0f * deltaTime);
 	}
 
 	// The escape key 
 	if (m_inputController.KeyState[27] == INPUT_DOWN_FIRST)
 	{
-		exit(0);
+		ShutDown();
+	}
+
+	// PROCESSING THE COLLISION BETWEEN THE SPHERE AND CLOTH
+	for (auto &point : m_cloth->points)
+	{
+		float distance = glm::distance(point.getPos(), sphere.getPos());
+		float radius = sphere.getScaleX();
+
+		// check if colliding
+		if (distance < radius)
+		{
+			point.setPos(sphere.getPos() + glm::normalize(point.getPos() - sphere.getPos())*(radius + 0.1f));
+		}
 	}
 
 
@@ -315,7 +407,7 @@ void CGame::Update()
 
 
 	//check mouse picking
-	for (auto it = m_cloth.points.begin(); it != m_cloth.points.end(); it++)
+	for (auto it = m_cloth->points.begin(); it != m_cloth->points.end(); it++)
 	{
 		if (UpdateMousePicking(&(*it).m_sphere) == true && m_inputController.MouseState[0] == INPUT_DOWN_FIRST)
 		{
@@ -335,7 +427,7 @@ void CGame::Update()
 	// reset all points to not being dragged if mouse is up
 	if (m_inputController.MouseState[0] == INPUT_UP_FIRST)
 	{
-		for (auto &point : m_cloth.points)
+		for (auto &point : m_cloth->points)
 		{
 			if (point.beingDragged) point.beingDragged = false;
 		}
@@ -344,7 +436,7 @@ void CGame::Update()
 
 	//if (m_inputController.MouseState[0] == INPUT_DOWN)
 	//{
-	//	DragObject(&m_cloth.points[1].m_sphere);
+	//	DragObject(&m_cloth->points[1].m_sphere);
 
 	//}
 
@@ -374,7 +466,9 @@ void CGame::ResetGame()
 {
 	m_camera.ResetCamera();
 
-	m_cloth = CCloth(20.0f, 20.0f, 20, 20, m_PROGRAMS["LINE"], m_PROGRAMS["SPHERE_COLOR"], m_TEXTURES["RAYMAN"]);
+	delete m_cloth;
+
+	m_cloth = new CCloth(cloth_width, cloth_height, cloth_points_width, cloth_points_height, m_PROGRAMS["LINE"], m_PROGRAMS["SPHERE_COLOR"], m_TEXTURES["RAYMAN"]);
 }
 
 void CGame::ProcessDeltaTime()
@@ -396,6 +490,7 @@ void CGame::ProcessDeltaTime()
 
 void CGame::ShutDown()
 {
+	delete m_cloth;
 	exit(0);
 }
 
