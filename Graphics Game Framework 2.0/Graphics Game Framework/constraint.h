@@ -7,21 +7,37 @@
 class CConstraint
 {
 public:
-	//CConstraint() {};
-	CConstraint(CPoint* _p1, CPoint* _p2);
+	CPoint *p1, *p2; // the two particles that are connected through this constraint
 
-	~CConstraint() {};
+	CConstraint(CPoint *p1, CPoint *p2, GLuint _lineProgram, bool _shouldRender) : p1(p1), p2(p2)
+	{
+		glm::vec3 diff = p1->getPos() - p2->getPos();
+		restingLength = glm::length(diff);
 
-	CConstraint(GLuint _program, CPoint * _p1, CPoint * _p2);
+		shouldRender = _shouldRender;
 
-	void Satisfy();
-	void Render(CCamera * _camera);
-	//void Render();
+		if (_shouldRender)
+		{
+			m_line.initailise(_lineProgram, p1->getPos(), p2->getPos());
+		}
+	}
+
+	~CConstraint()
+	{
+		/*	if (p1 != nullptr) delete p1;
+			if (p2 != nullptr) delete p2;*/
+	}
+
+	CLine m_line;
+	bool shouldRender = false;
+
+	/* This is one of the important methods, where a single constraint between two particles p1 and p2 is solved
+	the method is called by Cloth.time_step() many times per frame*/
+	void satisfyConstraint(bool _canBeTurn);
+
 private:
-	CPoint *p1, *p2;
-	float distance;
-	CLine line;
+	float restingLength; // the length between particle p1 and p2 in rest configuration
 
-	//const float stiffness = 0.8f;
+
 };
 

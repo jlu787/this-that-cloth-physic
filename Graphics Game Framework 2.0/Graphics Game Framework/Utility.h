@@ -9,6 +9,20 @@
 
 #define UINT unsigned int
 
+#define DAMPING 0.01
+#define TIME_STEP 0.25 // how large time step each particle takes each frame
+#define CONSTRAINT_ITERATIONS 3 // how many iterations of constraint satisfaction each frame (more is rigid, less is soft)
+#define MAX_ACCELERATION 0.05
+#define DRAG_FORCE
+#define SPHERE_SCALE 0.1
+#define STIFFNESS 0.8
+
+struct MousePos
+{
+	float mouseX;
+	float mouseY;
+};
+
 class Utils
 {
 public:

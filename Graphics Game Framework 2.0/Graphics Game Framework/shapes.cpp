@@ -52,6 +52,33 @@ float CShape::getRotZ()
 	return m_rotZ;
 }
 
+glm::mat4 CShape::getModelMatrix()
+{
+	// Translation
+
+	glm::vec3 objPosition = glm::vec3(m_posX, m_posY, m_posZ); // This is how much you will translate by
+	glm::mat4 translationMatrix = glm::translate(glm::mat4(), objPosition); // create the transformation matrix
+
+																			// Rotation
+	glm::vec3 rotationAxis = glm::vec3(1.0f, 0.0f, 0.0f);
+	glm::mat4 rotationX = glm::rotate(glm::mat4(), glm::radians(m_rotX), rotationAxis);
+
+	rotationAxis = glm::vec3(0.0f, 1.0f, 0.0f);
+	glm::mat4 rotationY = glm::rotate(glm::mat4(), glm::radians(m_rotY), rotationAxis);
+
+	rotationAxis = glm::vec3(0.0f, 0.0f, 1.0f);
+	glm::mat4 rotationZ = glm::rotate(glm::mat4(), glm::radians(m_rotZ), rotationAxis);
+
+	// Scaling
+	glm::vec3 objScale = glm::vec3(m_scaleX, m_scaleY, m_scaleZ);
+	glm::mat4 scaleMatrix = glm::scale(glm::mat4(), objScale);
+
+	// Getting model matrix
+	glm::mat4 model = translationMatrix * rotationX * rotationY * rotationZ * scaleMatrix;
+
+	return model;
+}
+
 bool CShape::getActive()
 {
 	return m_active;

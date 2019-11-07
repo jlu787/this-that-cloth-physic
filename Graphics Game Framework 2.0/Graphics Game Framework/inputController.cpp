@@ -129,4 +129,12 @@ int CInputController::getMouseYWindow()
 	return mouseY;
 }
 
+glm::vec2 CInputController::GetMouseNDC()
+{
+	glm::vec2 mousePos;
+	mousePos.x = (2.0f * mouseX) / (float)Utils::SCR_WIDTH - 1.0f;
+	mousePos.y = 1.0f - (2.0f * mouseY) / (float)Utils::SCR_HEIGHT;
+	return mousePos;
+}
+
 

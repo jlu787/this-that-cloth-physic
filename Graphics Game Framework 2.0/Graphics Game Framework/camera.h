@@ -45,8 +45,8 @@ public:
 			//camUpDir = glm::vec3(0.0f, 0.0f, -1.0f);
 
 				// 3D Pos
-			camPos = glm::vec3(0.0f, 20.0f, 0.0f);
-			camLookDir = glm::vec3(0.0f, 0.0f, 1.0f);
+			camPos = glm::vec3(10.0f, 20.0f, 30.0f);
+			camLookDir = glm::vec3(0.0f, 0.0f, -1.0f);
 			camUpDir = glm::vec3(0.0f, 1.0f, 0.0f);
 
 			//perspective

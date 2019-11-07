@@ -7,6 +7,7 @@
 #include <time.h>
 #include <vector>
 #include <map>
+//#include "vld.h"
 //#include <cmath>
 
 #include "object.h"
@@ -68,6 +69,8 @@ public:
 
 	void DrawScaledUp(CShape * _object, float _scale);
 
+	void ShutDown();
+
 	// MOVE BACK to private later
 	CCamera m_camera;
 	CCamera m_canvas;
@@ -80,7 +83,7 @@ private:
 	CPlayer m_player;
 
 	//CObject m_objects[50];
-	CAudioManager m_audio;
+	//CAudioManager m_audio;
 	//CCamera m_camera;
 	GLuint m_program;
 
@@ -105,14 +108,14 @@ private:
 	bool inMenu = true;
 
 	// BACKGROUND ETC..
-	//Terrain m_terrain;
+	/*Terrain m_terrain;*/
 	//GeometryModel m_star;
 	//TessModel m_tesselatedModel;
 
 
-	/*CReflectiveSphere m_reflectiveSphere;
+	CReflectiveSphere m_reflectiveSphere;
 	CCubeMap m_cubeMap;
-	CQuad m_floor;
+	/*CQuad m_floor;
 	CQuad m_water;
 	CCube testCube;
 	CCube m_stencilCube;*/
@@ -123,12 +126,17 @@ private:
 
 	CCloth m_cloth;
 	
-
-
 	// MOUSE PICKING
 	glm::vec3 rayDirection;
 	float mouseY;
 	float mouseX;
+	float lastMouseY;
+	float lastMouseX;
 	bool UpdateMousePicking(CShape * _object);
 
+	void DragObject(CShape * _object);
+
+
+	glm::vec2 mousePos;
+	glm::vec2 mousePosLastFrame;
 };

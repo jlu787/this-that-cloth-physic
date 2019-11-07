@@ -1,0 +1,18 @@
+#version 450 core
+
+layout (points) in;
+layout (line_strip, max_vertices= 2) out;
+
+in VS_GS_VERTEX{
+	in vec3 pos1;
+	in vec3 pos2;
+	in mat4 vp;
+}gs_in[];
+
+void main() {
+
+	gl_Position = gs_in[0].vp * vec4(gs_in[0].pos1, 1.0f); EmitVertex();
+	gl_Position = gs_in[0].vp * vec4(gs_in[0].pos2, 1.0f); EmitVertex();
+	EndPrimitive();
+
+}
