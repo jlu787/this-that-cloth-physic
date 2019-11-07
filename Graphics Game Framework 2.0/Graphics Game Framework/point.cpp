@@ -39,6 +39,7 @@ void CPoint::addForce(glm::vec3 f)
 {
 	acceleration += f / mass;
 
+	// cap acceleration
 	if (glm::length(acceleration) > MAX_ACCELERATION)
 	{
 		acceleration = glm::normalize(acceleration) * (float)MAX_ACCELERATION;

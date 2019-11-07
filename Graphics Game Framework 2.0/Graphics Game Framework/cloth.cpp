@@ -46,7 +46,7 @@ void CCloth::timeStep()
 	{
 		for (auto &constraint : constraints)
 		{
-			constraint.satisfyConstraint();
+			constraint.satisfyConstraint(canBeTorn);
 		}
 	}
 

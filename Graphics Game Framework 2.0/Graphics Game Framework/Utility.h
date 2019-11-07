@@ -15,6 +15,7 @@
 #define MAX_ACCELERATION 0.05
 #define DRAG_FORCE
 #define SPHERE_SCALE 0.1
+#define STIFFNESS 0.8
 
 struct MousePos
 {

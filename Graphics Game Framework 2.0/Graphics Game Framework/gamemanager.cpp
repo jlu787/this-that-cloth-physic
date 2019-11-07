@@ -191,13 +191,14 @@ void CGame::Update()
 		ResetGame();
 	}
 
-
+	// RELEASING
 	if (m_inputController.KeyState['1'] == INPUT_DOWN_FIRST)
 	{
 		m_cloth.Release();
 
 	}
 
+	// SLIDING RINGS
 	if (m_inputController.KeyState['j'] == INPUT_DOWN)
 	{
 		m_cloth.SlideRings(-0.5);
@@ -206,6 +207,12 @@ void CGame::Update()
 	if (m_inputController.KeyState['k'] == INPUT_DOWN)
 	{
 		m_cloth.SlideRings(0.5);
+	}
+
+	// SWITCHING CAN BE TORN
+	if (m_inputController.KeyState['u'] == INPUT_DOWN_FIRST)
+	{
+		m_cloth.canBeTorn = !m_cloth.canBeTorn;
 	}
 
 	// The escape key 

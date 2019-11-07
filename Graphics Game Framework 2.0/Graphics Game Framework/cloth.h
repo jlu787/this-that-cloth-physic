@@ -84,7 +84,8 @@ public:
 		//getParticle(num_particles_width-1, 0)->makeUnmovable();
 	}
 
-	float ground = 0.0f;
+	float ground = 0.0f; // y value for the ground
+	bool canBeTorn = false;
 
 	void GroundCheck();
 
