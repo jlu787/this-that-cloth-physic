@@ -115,6 +115,8 @@ private:
 
 	//CReflectiveSphere m_reflectiveSphere;
 	CSphere sphere;
+	CCube fan;
+	bool fanBeingDragged = false;
 	CCubeMap m_cubeMap;
 	/*CQuad m_floor;
 	CQuad m_water;
@@ -133,6 +135,9 @@ private:
 
 	const int min_width = 1;
 	const int min_height = 1;
+
+	bool fanActive = false;
+	
 	
 	// MOUSE PICKING
 	glm::vec3 rayDirection;

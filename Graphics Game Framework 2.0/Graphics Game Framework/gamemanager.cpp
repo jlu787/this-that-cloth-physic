@@ -38,7 +38,7 @@ void CGame::Initialise()
 	// LOAD AUDIO
 
 	// LOAD PROGRAMS
-	//m_PROGRAMS["SIMPLE"] = ShaderLoader::CreateProgram("Resources/Shaders/simple.verts", "Resources/Shaders/simple.frags");
+	m_PROGRAMS["SIMPLE"] = ShaderLoader::CreateProgram("Resources/Shaders/simple.verts", "Resources/Shaders/simple.frags");
 	//m_PROGRAMS["SIMPLE_BLINN"] = ShaderLoader::CreateProgram("Resources/Shaders/simpleBlinnPhong.verts", "Resources/Shaders/simpleBlinnPhong.frags");
 	//m_PROGRAMS["SIMPLE_RIM"] = ShaderLoader::CreateProgram("Resources/Shaders/simpleRim.verts", "Resources/Shaders/simpleRim.frags");
 	//m_PROGRAMS["SPHERE_BLINN"] = ShaderLoader::CreateProgram("Resources/Shaders/sphereBlinnPhong.verts", "Resources/Shaders/sphereBlinnPhong.frags");
@@ -69,6 +69,7 @@ void CGame::Initialise()
 	m_TEXTURES["AWESOME"] = Utils::loadTexture("Resources/Textures/AwesomeFace.png");
 	m_TEXTURES["GRID"] = Utils::loadTexture("Resources/Textures/grid.jpg");
 	m_TEXTURES["WATER"] = Utils::loadTexture("Resources/Textures/WaterTex.png");
+	m_TEXTURES["FAN"] = Utils::loadTexture("Resources/Textures/fan.jpg");
 
 	//m_audio.playSound("BACKGROUND");
 
@@ -76,6 +77,7 @@ void CGame::Initialise()
 	//m_reflectiveSphere.setCamera(&m_camera);
 
 	sphere.initialise(m_PROGRAMS["SPHERE_COLOR"], m_TEXTURES["RAYMAN"], 10, 10, 4.0f);
+	fan.initialise(m_PROGRAMS["SIMPLE"], m_TEXTURES["FAN"], 0, 0, 0, 2.0f);
 
 	////m_floor = CQuad();
 	//m_floor.initialise(m_PROGRAMS["FOG"], m_TEXTURES["RAYMAN"], 0.0f, 0.0f, 5.0f);
@@ -123,12 +125,13 @@ void CGame::Render()
 	//glPolygonMode(GL_FRONT, GL_LINE);
 
 	m_cloth->addForce(glm::vec3(0, -0.2, 0)*(float)(TIME_STEP)); // add gravity each frame, pointing down
-	m_cloth->windForce(glm::vec3(0.0, 0, -0.1)*(float)(TIME_STEP)); // generate some wind each frame
+	//m_cloth->windForce(glm::vec3(0.0, 0, -0.1)*(float)(TIME_STEP)); // generate some wind each frame
 	m_cloth->timeStep(); // calculate the particle positions of the next frame	
 	m_cloth->GroundCheck();
 	
 	m_cubeMap.Render();
 	sphere.Render(&m_camera);
+	fan.Render(&m_camera);
 	//m_reflectiveSphere.Render(&m_camera, m_cubeMap.getTexID());
 	//m_floor.Render(&m_camera);
 	//m_water.Render(&m_camera);
@@ -303,15 +306,35 @@ void CGame::Update()
 	// PROCESSING THE COLLISION BETWEEN THE SPHERE AND CLOTH
 	for (auto &point : m_cloth->points)
 	{
-		float distance = glm::distance(point.getPos(), sphere.getPos());
-		float radius = sphere.getScaleX();
-
-		// check if colliding
-		if (distance < radius)
+		if (point.GetMovable())
 		{
-			point.setPos(sphere.getPos() + glm::normalize(point.getPos() - sphere.getPos())*(radius + 0.1f));
+			float distance = glm::distance(point.getPos(), sphere.getPos());
+			float radius = sphere.getScaleX();
+
+			// check if colliding
+			if (distance < radius)
+			{
+				point.setPos(sphere.getPos() + glm::normalize(point.getPos() - sphere.getPos())*(radius + 0.1f));
+			}
 		}
 	}
+
+	// PROCESSING THE WIND
+	for (auto &point : m_cloth->points)
+	{
+		// check if the point is inside the circle of wind projected by the fan
+
+		float d2 = (point.getPos().x - fan.getPos().x) * (point.getPos().x - fan.getPos().x) +
+			(point.getPos().y - fan.getPos().y) * (point.getPos().y - fan.getPos().y);
+
+		float r2 = (float)(5.0f * 5.0f);
+		if (d2 < r2)
+		{
+			//std::cout << "We are inside the fan range" << std::endl;
+			point.addForce({ 0.0f, 0.0f, -1.0f });
+		}
+	}
+
 
 
 	// Camera follow heightmap
@@ -404,25 +427,41 @@ void CGame::Update()
 	//	//m_reflectiveSphere.setPos(newPos);
 	//}
 
-
-
-	//check mouse picking
-	for (auto it = m_cloth->points.begin(); it != m_cloth->points.end(); it++)
+	// check mouse picking on the fan
+	if (m_inputController.MouseState[0] == INPUT_DOWN_FIRST && UpdateMousePicking(&fan))
 	{
-		if (UpdateMousePicking(&(*it).m_sphere) == true && m_inputController.MouseState[0] == INPUT_DOWN_FIRST)
-		{
-			std::cout << "OOH YOU TOUCHIE TOUCHIE" << std::endl;
-			(*it).beingDragged = true;
-			//if (m_inputController.MouseState[0] == INPUT_DOWN)
-			
-		}
+		//std::cout << "OOH YOU TOUCHIE TOUCHIE" << std::endl;
+		fanBeingDragged = true;
+	}
 
-		if ((*it).beingDragged)
+	if (fanBeingDragged)
+	{
+		DragObject(&fan);
+	}
+	//check mouse picking on cloth points if the fan is not already being dragged
+	else
+	{
+		for (auto it = m_cloth->points.begin(); it != m_cloth->points.end(); it++)
 		{
-			DragObject(&(*it).m_sphere);
-			(*it).setPos((*it).m_sphere.getPos());
+			if (UpdateMousePicking(&(*it).m_sphere) == true && m_inputController.MouseState[0] == INPUT_DOWN_FIRST)
+			{
+				//std::cout << "OOH YOU TOUCHIE TOUCHIE" << std::endl;
+				(*it).beingDragged = true;
+				//if (m_inputController.MouseState[0] == INPUT_DOWN)
+
+			}
+
+			if ((*it).beingDragged)
+			{
+				DragObject(&(*it).m_sphere);
+				(*it).setPos((*it).m_sphere.getPos());
+			}
 		}
 	}
+	
+
+
+
 
 	// reset all points to not being dragged if mouse is up
 	if (m_inputController.MouseState[0] == INPUT_UP_FIRST)
@@ -431,6 +470,7 @@ void CGame::Update()
 		{
 			if (point.beingDragged) point.beingDragged = false;
 		}
+		fanBeingDragged = false;
 	}
 
 
@@ -441,8 +481,8 @@ void CGame::Update()
 	//}
 
 
-	std::cout << "deltaX = " << (mousePos - mousePosLastFrame).x << std::endl;
-	std::cout << "deltaY = " << (mousePos - mousePosLastFrame).y << std::endl;
+	//std::cout << "deltaX = " << (mousePos - mousePosLastFrame).x << std::endl;
+	//std::cout << "deltaY = " << (mousePos - mousePosLastFrame).y << std::endl;
 
 	//std::cout << "CLICKING LEFT " + test << std::endl;
 
@@ -613,6 +653,14 @@ void CGame::DragObject(CShape* _object)
 	newPos.z = 0;
 
 	_object->setPos(_object->getPos() + newPos);
+
+	//std::cout << "newPos X = " << newPos.x << std::endl;
+	//std::cout << "newPos Y = " << newPos.y << std::endl;
+	//std::cout << "newPos Z = " << newPos.z << std::endl;
+
+	//std::cout << "objPos X = " << _object->getPos().x << std::endl;
+	//std::cout << "objPos Y = " << _object->getPos().y << std::endl;
+	//std::cout << "objPos Z = " << _object->getPos().z << std::endl;
 }
 
 
