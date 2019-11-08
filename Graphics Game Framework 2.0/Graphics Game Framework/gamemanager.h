@@ -138,6 +138,9 @@ private:
 
 	bool fanActive = false; // if the fan is on turn global wind off
 	glm::vec3 windSpeed = glm::vec3(0.0f, 0.0f, -0.1f);
+
+	// burning
+	bool torchOn = false;
 	
 	// MOUSE PICKING
 	glm::vec3 rayDirection;

@@ -18,6 +18,9 @@ public:
 	int x;
 	int y;
 
+	// burning
+	bool onFire = false;
+
 	CSphere m_sphere;
 
 	void addForce(glm::vec3 f);

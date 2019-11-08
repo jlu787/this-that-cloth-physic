@@ -20,6 +20,8 @@ public:
 		{
 			m_line.initailise(_lineProgram, p1->getPos(), p2->getPos());
 		}
+
+		burnRate = (float)(rand() % 500) / 1000.0f + 0.75f;
 	}
 
 	~CConstraint()
@@ -30,6 +32,9 @@ public:
 
 	CLine m_line;
 	bool shouldRender = false;
+	float burntness = 0.0f;
+	float burnRate = 1.0f;
+	//bool onFire = false;
 
 	/* This is one of the important methods, where a single constraint between two particles p1 and p2 is solved
 	the method is called by Cloth.time_step() many times per frame*/

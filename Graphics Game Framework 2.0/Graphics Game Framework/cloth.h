@@ -40,8 +40,8 @@ public:
 			{
 				if (x < num_particles_width - 1) makeConstraint(getParticle(x, y), getParticle(x + 1, y), true);
 				if (y < num_particles_height - 1) makeConstraint(getParticle(x, y), getParticle(x, y + 1), true);
-				if (x < num_particles_width - 1 && y < num_particles_height - 1) makeConstraint(getParticle(x, y), getParticle(x + 1, y + 1), false);
-				if (x < num_particles_width - 1 && y < num_particles_height - 1) makeConstraint(getParticle(x + 1, y), getParticle(x, y + 1), false);
+				if (x < num_particles_width - 1 && y < num_particles_height - 1) makeConstraint(getParticle(x, y), getParticle(x + 1, y + 1), true);
+				if (x < num_particles_width - 1 && y < num_particles_height - 1) makeConstraint(getParticle(x + 1, y), getParticle(x, y + 1), true);
 			}
 		}
 

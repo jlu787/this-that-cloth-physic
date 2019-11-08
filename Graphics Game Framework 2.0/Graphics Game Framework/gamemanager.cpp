@@ -324,6 +324,13 @@ void CGame::Update()
 		windSpeed -= glm::vec3(0.0f, 0.0f, 0.1f);
 	}
 
+
+	// TOGGLING TORCH ON AND OFF
+	if (m_inputController.KeyState['z'] == INPUT_DOWN_FIRST)
+	{
+		torchOn = !torchOn;
+	}
+
 	// The escape key 
 	if (m_inputController.KeyState[27] == INPUT_DOWN_FIRST)
 	{
@@ -480,8 +487,12 @@ void CGame::Update()
 			{
 				//std::cout << "OOH YOU TOUCHIE TOUCHIE" << std::endl;
 				(*it).beingDragged = true;
+				
+				if (torchOn)
+				{
+					(*it).onFire = true;
+				}
 				//if (m_inputController.MouseState[0] == INPUT_DOWN)
-
 			}
 
 			if ((*it).beingDragged)
