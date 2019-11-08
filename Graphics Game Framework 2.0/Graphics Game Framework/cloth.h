@@ -45,18 +45,6 @@ public:
 			}
 		}
 
-		//// Connecting secondary neighbors with constraints (distance 2 and sqrt(4) in the grid)
-		//for (int x = 0; x < num_particles_width; x++)
-		//{
-		//	for (int y = 0; y < num_particles_height; y++)
-		//	{
-		//		if (x < num_particles_width - 2) makeConstraint(getParticle(x, y), getParticle(x + 2, y), false);
-		//		if (y < num_particles_height - 2) makeConstraint(getParticle(x, y), getParticle(x, y + 2), false);
-		//		if (x < num_particles_width - 2 && y < num_particles_height - 2) makeConstraint(getParticle(x, y), getParticle(x + 2, y + 2), false);
-		//		if (x < num_particles_width - 2 && y < num_particles_height - 2) makeConstraint(getParticle(x + 2, y), getParticle(x, y + 2), false);
-		//	}
-		//}
-
 		// making the upper row static
 		for (int i = 0; i < num_particles_width; i++)
 		{

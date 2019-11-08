@@ -90,11 +90,14 @@ void CCloth::windForce(const glm::vec3 direction)
 
 void CCloth::Render(CCamera * _camera)
 {
+
+	// render points
 	for (auto it = points.begin(); it != points.end(); it++)
 	{
 		(*it).m_sphere.Render(_camera);
 	}
 
+	// render constraints
 	for (auto it = constraints.begin(); it != constraints.end(); it++)
 	{
 		if ((*it).shouldRender)

@@ -7,7 +7,7 @@
 class CConstraint
 {
 public:
-	CPoint *p1, *p2; // the two particles that are connected through this constraint
+	CPoint *p1, *p2; // the two points that are connected through this constraint
 
 	CConstraint(CPoint *p1, CPoint *p2, GLuint _lineProgram, bool _shouldRender) : p1(p1), p2(p2)
 	{
@@ -21,7 +21,7 @@ public:
 			m_line.initailise(_lineProgram, p1->getPos(), p2->getPos());
 		}
 
-		burnRate = (float)(rand() % 500) / 1000.0f + 0.75f;
+		burnRate = (float)(rand() % 500) / 1000.0f + 0.75f; // add some randomness to burnRate (from 0.75 - 1.25)
 	}
 
 	~CConstraint()
@@ -36,12 +36,12 @@ public:
 	float burnRate = 1.0f;
 	//bool onFire = false;
 
-	/* This is one of the important methods, where a single constraint between two particles p1 and p2 is solved
+	/* This is one of the important methods, where a single constraint between two points p1 and p2 is solved
 	the method is called by Cloth.time_step() many times per frame*/
-	void satisfyConstraint(bool _canBeTurn);
+	void satisfyConstraint(bool _canBeTorn);
 
 private:
-	float restingLength; // the length between particle p1 and p2 in rest configuration
+	float restingLength; // the length between point p1 and p2 in rest configuration
 
 
 };

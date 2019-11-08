@@ -39,14 +39,13 @@ public:
 	void SetMovable(bool _b) { movable = _b; }
 	bool GetMovable() { return movable; }
 
-	bool beingDragged = false;
+	bool beingDragged = false; // used to check if a point is being dragged
 
 private:
-	bool movable; // can the particle move or not ? used to pin parts of the cloth
+	bool movable; // can the point move or not ? used to pin parts of the cloth
 
-	float mass; // the mass of the particle (is always 1 in this example)
-	glm::vec3 pos; // the current position of the particle in 3D space
-	glm::vec3 old_pos; // the position of the particle in the previous time step, used as part of the verlet numerical integration scheme
-	glm::vec3 acceleration; // a vector representing the current acceleration of the particle
-	//glm::vec3 accumulated_normal; // an accumulated normal (i.e. non normalized), used for OpenGL soft shading
+	float mass; // the mass of the point
+	glm::vec3 pos; // the current position of the point in 3D space
+	glm::vec3 old_pos; // the position of the point in the previous time step, used as part of the verlet numerical integration scheme
+	glm::vec3 acceleration; // a vector representing the current acceleration of the point
 };

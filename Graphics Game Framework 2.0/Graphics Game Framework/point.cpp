@@ -48,12 +48,13 @@ void CPoint::addForce(glm::vec3 f)
 
 void CPoint::timeStep()
 {
+	// perform verlet integration if the point isn't pinned
 	if (movable)
 	{
 		glm::vec3 temp = pos;
 		pos = pos + (pos - old_pos) * (float)(1.0f - DAMPING) + acceleration * (float)(TIME_STEP);
 		old_pos = temp;
-		acceleration = glm::vec3(0, 0, 0); // acceleration is reset since it HAS been translated into a change in position (and implicitely into velocity)	
+		acceleration = glm::vec3(0, 0, 0); // reset acceleration as it is no longer needed
 	}
-	m_sphere.setPos(pos);
+	m_sphere.setPos(pos); // set the openGL sphere to be in the same position as the point
 }

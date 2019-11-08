@@ -90,16 +90,17 @@ void CConstraint::satisfyConstraint(bool _canBeTorn)
 		// satisfy constraints based on how far they are from one another
 		else
 		{
-			glm::vec3 correctionVector = differenceVector * (1 - restingLength / current_distance); // The offset vector that could moves p1 into a distance of rest_distance to p2
-			glm::vec3 correctionVectorHalf = correctionVector * 0.5f; // Lets make it half that length, so that we can move BOTH p1 and p2.
-			p1->offsetPos(correctionVectorHalf * (float)STIFFNESS); // correctionVectorHalf is pointing from p1 to p2, so the length should move p1 half the length needed to satisfy the constraint.
-			p2->offsetPos(-correctionVectorHalf * (float)STIFFNESS); // we must move p2 the negative direction of correctionVectorHalf since it points from p2 to p1, and not p1 to p2.
+			glm::vec3 correctionVector = differenceVector * (1 - restingLength / current_distance); // offset vector from p1 to p2
+			glm::vec3 correctionVectorHalf = correctionVector * 0.5f; // half of the offset
+			p1->offsetPos(correctionVectorHalf * (float)STIFFNESS); // move the point multiplied by stiffness
+			p2->offsetPos(-correctionVectorHalf * (float)STIFFNESS); // move the other point in the other direction
 
 			// burning
 			if (p1->onFire || p2->onFire /*&& burntness < 1.0f*/)
 			{
 				burntness += 0.0025f * burnRate/current_distance;
 			}
+
 			// spread
 			if (burntness >= 0.5f)
 			{
@@ -115,15 +116,15 @@ void CConstraint::satisfyConstraint(bool _canBeTorn)
 			}
 
 			burntness = glm::clamp(burntness, 0.0f, 1.0f);
-			m_line.m_color = glm::vec3(burntness, 0.0f, 1.0f - burntness);
-		}
-		
 
-		
+			// set the color based on how burnt it is
+			m_line.m_color = glm::vec3(burntness, 0.0f, 1.0f - burntness);
+		}	
 	
 	}
 	else
 	{
+		// stop rendering if the constraint has been broken
 		shouldRender = false;
 	}
 

@@ -65,54 +65,14 @@ void CGame::Initialise()
 
 	// LOAD TEXTURES
 	m_TEXTURES["RAYMAN"] = Utils::loadTexture("Resources/Textures/Rayman.jpg");
-	m_TEXTURES["UNIMPRESSED"] = Utils::loadTexture("Resources/Textures/unimpressed.png");
-	m_TEXTURES["AWESOME"] = Utils::loadTexture("Resources/Textures/AwesomeFace.png");
-	m_TEXTURES["GRID"] = Utils::loadTexture("Resources/Textures/grid.jpg");
-	m_TEXTURES["WATER"] = Utils::loadTexture("Resources/Textures/WaterTex.png");
 	m_TEXTURES["FAN"] = Utils::loadTexture("Resources/Textures/fan.jpg");
-
-	//m_audio.playSound("BACKGROUND");
-
-	//m_reflectiveSphere.initialise(m_PROGRAMS["SPHERE_REFLECT"], m_TEXTURES["RAYMAN"], 0.0f, 0.0f, 1.0f);
-	//m_reflectiveSphere.setCamera(&m_camera);
 
 	sphere.initialise(m_PROGRAMS["SPHERE_COLOR"], m_TEXTURES["RAYMAN"], 10, 10, 4.0f);
 	fan.initialise(m_PROGRAMS["SIMPLE"], m_TEXTURES["FAN"], 0, 0, 0, 2.0f);
 
-	////m_floor = CQuad();
-	//m_floor.initialise(m_PROGRAMS["FOG"], m_TEXTURES["RAYMAN"], 0.0f, 0.0f, 5.0f);
-	//m_floor.setRotX(-90.0f);
-	//m_floor.setRotZ(45.0f);
-	//m_water.initialise(m_PROGRAMS["FOG"], m_TEXTURES["WATER"], 0.0f, 0.1f, 5.0f);
-	////testQuad.setPosZ(-0.01f)
-	//m_water.setRotX(-90.0f);
-	//m_water.setRotZ(45.0f);
 	m_cubeMap = CCubeMap(&m_camera);
-	//testCube.initialise(m_PROGRAMS["FOG"], m_TEXTURES["UNIMPRESSED"], 0.0f, 0.0f, 0.0f, 1.0f);
-	//testCube.setRotX(30.0f);
-	//testCube.setRotY(50.0f);
-	//testCube.setRotZ(70.0f);
 
-	//zoomIn.initialise(m_PROGRAMS["SIMPLE"], m_TEXTURES["AWESOME"], -300.0f, 0.0f, 0.0f, 100.0f);
-	//zoomOut.initialise(m_PROGRAMS["SIMPLE"], m_TEXTURES["AWESOME"], 300.0f, 0.0f, 0.0f, 100.0f);
-
-
-	//m_stencilCube.initialise(m_PROGRAMS["STENCIL"], m_TEXTURES["UNIMPRESSED"], 0.0f, 0.0f, 0.0f, 5.0f);
-
-	// create heightmap
-	//m_terrain = Terrain();
-	//m_terrain.initialise(m_PROGRAMS["HEIGHTMAP"], m_TEXTURES["RAYMAN"], 0.0f, 0.0f, 0.0f, 1.0f);
-	//m_cloth = CCloth(m_PROGRAMS["LINE"], m_PROGRAMS["SPHERE_COLOR"], m_TEXTURES["RAYMAN"], 20.0f, 20.0f, 20, 20, 0.01, 10.0f);
 	m_cloth = new CCloth(cloth_width, cloth_height, cloth_points_width, cloth_points_height, m_PROGRAMS["LINE"], m_PROGRAMS["SPHERE_COLOR"], m_TEXTURES["RAYMAN"]);
-
-
-	/*m_star = GeometryModel(m_PROGRAMS["GEOMETRY"]);
-	m_star.setPosX(6.0f);
-	m_star.setPosY(60.0f);
-	m_star.setPosZ(0.0f);
-	m_star.setScaleX(20.0f);
-	m_star.setScaleY(20.0f);
-	m_star.setScaleZ(20.0f);*/
 
 	m_camera.setCameraSpeed(200.0f);
 }
@@ -124,7 +84,7 @@ void CGame::Render()
 	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	//glPolygonMode(GL_FRONT, GL_LINE);
 
-	m_cloth->addForce(glm::vec3(0, -0.2, 0)*(float)(TIME_STEP)); // add gravity each frame, pointing down
+	m_cloth->addForce(glm::vec3(0, -0.2, 0)*(float)(TIME_STEP)); // add gravity each frame
 
 	if (!fanActive) // Global wind force if fan is not active.
 	{
@@ -135,43 +95,13 @@ void CGame::Render()
 		fan.Render(&m_camera);
 	}
 
-	m_cloth->timeStep(); // calculate the particle positions of the next frame	
+	m_cloth->timeStep(); // calculate the point positions of the next frame	
 	m_cloth->GroundCheck();
 	
 	m_cubeMap.Render();
 	sphere.Render(&m_camera);
 	
-	//m_reflectiveSphere.Render(&m_camera, m_cubeMap.getTexID());
-	//m_floor.Render(&m_camera);
-	//m_water.Render(&m_camera);
-
-	//m_terrain.Render(&m_camera);
-	//m_star.Render(&m_camera);
-	//m_tesselatedModel.Render(&m_camera);
 	m_cloth->Render(&m_camera);
-
-	//// Stencil Buffer
-	//glEnable(GL_STENCIL_TEST);
-	//glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE); // stfail, dpFail, bothPass
-	//glStencilFunc(GL_ALWAYS, 1, 0xFF); // specify condition for stencil pass
-	//glStencilMask(0xFF); // enable writing to stencil buffer
-	//testCube.Render(&m_camera);
-	//glStencilMask(0x00); // disable writing to stencil buffer
-	//glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
-	//DrawScaledUp(&testCube, 1.1f); // draw scaled up object
-	//glDisable(GL_STENCIL_TEST);
-	//glStencilMask(0xFF); // enable writing to stencil buffer
-
-	//glDisable(GL_DEPTH);
-
-	//zoomIn.Render(&m_canvas);
-	//zoomOut.Render(&m_canvas);
-
-	//glEnable(GL_DEPTH);
-
-	/*glDisable(GL_SCISSOR_TEST);*/
-	//glDisable(GL_CULL_FACE);
-	/*glEnable(GL_DEPTH_TEST);*/
 }
 
 void CGame::Update()
@@ -203,6 +133,7 @@ void CGame::Update()
 		m_camera.moveRight(deltaTime);
 	}
 
+	// RESETTING GAME
 	if (m_inputController.KeyState['r'] == INPUT_DOWN_FIRST)
 	{
 		ResetGame();
@@ -375,21 +306,6 @@ void CGame::Update()
 	}
 	
 
-
-
-	// Camera follow heightmap
-
-	// make sure the camera is within the bounds of the heightmap before checking for height
-	//if (!(m_camera.getCamPos().x >= m_terrain.width()* 0.5 || m_camera.getCamPos().x <= m_terrain.width()* -0.5 ||
-	//	m_camera.getCamPos().z >= m_terrain.depth()* 0.5 || m_camera.getCamPos().z <= m_terrain.depth()* -0.5))
-	//{
-	//	m_camera.setCamPos(glm::vec3(m_camera.getCamPos().x, m_terrain.getHeight(m_camera.getCamPos().x, m_camera.getCamPos().z) + 20.0f, m_camera.getCamPos().z));
-	//}
-
-
-	//mouseX = m_inputController.getMouseXWindow();
-	//mouseY = m_inputController.getMouseYWindow();
-
 	mousePos = m_inputController.GetMouseNDC();
 	/*std::cout << "MouseX = " << mouseX <<  std::endl;
 	std::cout << "MouseY = " << mouseY <<  std::endl;*/
@@ -487,7 +403,7 @@ void CGame::Update()
 			{
 				//std::cout << "OOH YOU TOUCHIE TOUCHIE" << std::endl;
 				(*it).beingDragged = true;
-				
+
 				if (torchOn)
 				{
 					(*it).onFire = true;
@@ -502,9 +418,6 @@ void CGame::Update()
 			}
 		}
 	}
-	
-
-
 
 
 	// reset all points to not being dragged if mouse is up
@@ -579,29 +492,6 @@ void CGame::ShutDown()
 	delete m_cloth;
 	exit(0);
 }
-
-//void CGame::DrawScaledUp(CShape* _object, float _scale)
-//{
-//	//// scale up
-//	//_object->setScaleX(_object->getScaleX() * _scale);
-//	//_object->setScaleY(_object->getScaleY() * _scale);
-//	//_object->setScaleZ(_object->getScaleZ() * _scale);
-//
-//	// get the cubes info
-//	m_stencilCube.setScaleX(_object->getScaleX() * _scale);
-//	m_stencilCube.setScaleY(_object->getScaleY() * _scale);
-//	m_stencilCube.setScaleZ(_object->getScaleZ() * _scale);
-//
-//	m_stencilCube.setRotX(_object->getRotX());
-//	m_stencilCube.setRotY(_object->getRotY());
-//	m_stencilCube.setRotZ(_object->getRotZ());
-//
-//	m_stencilCube.setPosX(_object->getPosX());
-//	m_stencilCube.setPosY(_object->getPosY());
-//	m_stencilCube.setPosZ(_object->getPosZ());
-//
-//
-//}
 
 bool CGame::UpdateMousePicking(CShape* _object)
 {
