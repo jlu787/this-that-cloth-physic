@@ -29,7 +29,7 @@ public:
 				glm::vec3 pos = glm::vec3(width * (x / (float)num_particles_width) + horizontalOffset,
 					-height * (y / (float)num_particles_height) + verticalOffset,
 					depthOffset);
-				points[y*num_particles_width + x] = CPoint(pos, _sphereProgram, _sphereTex); // insert particle in column x at y'th row
+				points[y*num_particles_width + x] = CPoint(pos, _sphereProgram, _sphereTex, x, y); // insert particle in column x at y'th row
 			}
 		}
 
@@ -116,6 +116,9 @@ public:
 	std::vector<CConstraint> constraints; // all constraints between points as part of this cloth
 
 	CPoint* getParticle(int x, int y) { return &points[y*numHorizontalParticles + x]; }
+
+	void addWindForceForPoint(int _x, int _y, glm::vec3 direction);
+
 
 private:
 

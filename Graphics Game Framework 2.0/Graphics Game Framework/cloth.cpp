@@ -125,3 +125,13 @@ void CCloth::addWindForcesForTriangle(CPoint * p1, CPoint * p2, CPoint * p3, con
 	p2->addForce(force);
 	p3->addForce(force);
 }
+
+void CCloth::addWindForceForPoint(int _x, int _y, glm::vec3 direction)
+{
+	if (_x < numHorizontalParticles - 1 && _y < numVerticalParticles - 1)
+	{
+		// adds wind force for 2 triangles making a quadrant of the cloth
+		addWindForcesForTriangle(getParticle(_x + 1, _y), getParticle(_x, _y), getParticle(_x, _y + 1), direction);
+		addWindForcesForTriangle(getParticle(_x + 1, _y + 1), getParticle(_x + 1, _y), getParticle(_x, _y + 1), direction);
+	}
+}

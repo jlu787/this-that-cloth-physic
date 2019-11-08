@@ -331,7 +331,9 @@ void CGame::Update()
 		if (d2 < r2)
 		{
 			//std::cout << "We are inside the fan range" << std::endl;
-			point.addForce({ 0.0f, 0.0f, -1.0f });
+			//point.addForce({ 0.0f, 0.0f, -1.0f });
+
+			m_cloth->addWindForceForPoint(point.x, point.y, { 0.0f, 0.0f, -0.1f });
 		}
 	}
 

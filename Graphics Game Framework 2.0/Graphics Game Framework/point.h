@@ -5,12 +5,18 @@
 class CPoint
 {
 public:
-	CPoint(glm::vec3 pos, GLuint _program, GLuint _texture) : pos(pos), old_pos(pos), acceleration(glm::vec3(0, 0, 0)), mass(1), movable(true)/*, accumulated_normal(glm::vec3(0, 0, 0))*/
+	CPoint(glm::vec3 pos, GLuint _program, GLuint _texture, int _x, int _y) : pos(pos), old_pos(pos), acceleration(glm::vec3(0, 0, 0)), mass(1), movable(true)/*, accumulated_normal(glm::vec3(0, 0, 0))*/
 	{
 		m_sphere.initialise(_program, _texture, 0, 0, SPHERE_SCALE);
 		m_sphere.setPos(pos);
+		x = _x;
+		y = _y;
 	}
 	CPoint() {};
+
+	// used to store index of point
+	int x;
+	int y;
 
 	CSphere m_sphere;
 
