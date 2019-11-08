@@ -17,12 +17,12 @@ Reset Scene - R
 Release Cloth from static Hinge - 1
 Slide Rings Inwards - J
 Slide Rings Outwards - K
-Toggle Tear-able - U 
+Toggle Tear-able - U (click and drag on points)
 Add Points Vertically - O
 Add Points Horizontally - P
 Removing Points Vertically - L
 Removing Points Horizontally - ; (semicolon key)
-Toggling Fan Object - I
+Toggling Fan Object - I (if fan is active, object can be dragged around by mouse)
 Increase Windspeed - N 
 Reducing Windspeed - M
 Toggle Flammable - Z 
