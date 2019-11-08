@@ -125,13 +125,22 @@ void CGame::Render()
 	//glPolygonMode(GL_FRONT, GL_LINE);
 
 	m_cloth->addForce(glm::vec3(0, -0.2, 0)*(float)(TIME_STEP)); // add gravity each frame, pointing down
-	//m_cloth->windForce(glm::vec3(0.0, 0, -0.1)*(float)(TIME_STEP)); // generate some wind each frame
+
+	if (!fanActive) // Global wind force if fan is not active.
+	{
+		m_cloth->windForce(windSpeed*(float)(TIME_STEP)); // generate some wind each frame
+	}
+	else
+	{
+		fan.Render(&m_camera);
+	}
+
 	m_cloth->timeStep(); // calculate the particle positions of the next frame	
 	m_cloth->GroundCheck();
 	
 	m_cubeMap.Render();
 	sphere.Render(&m_camera);
-	fan.Render(&m_camera);
+	
 	//m_reflectiveSphere.Render(&m_camera, m_cubeMap.getTexID());
 	//m_floor.Render(&m_camera);
 	//m_water.Render(&m_camera);
@@ -297,6 +306,24 @@ void CGame::Update()
 		sphere.setPosZ(sphere.getPosZ() + 20.0f * deltaTime);
 	}
 
+	// TOGGLING THE FAN ON AND OFF
+	if (m_inputController.KeyState['i'] == INPUT_DOWN_FIRST)
+	{
+		fanActive = !fanActive;
+	}
+
+	// INCREASING WIND
+	if (m_inputController.KeyState['n'] == INPUT_DOWN_FIRST)
+	{
+		windSpeed += glm::vec3(0.0f,0.0f,0.1f);
+	}
+
+	// TOGGLING THE FAN ON AND OFF
+	if (m_inputController.KeyState['m'] == INPUT_DOWN_FIRST)
+	{
+		windSpeed -= glm::vec3(0.0f, 0.0f, 0.1f);
+	}
+
 	// The escape key 
 	if (m_inputController.KeyState[27] == INPUT_DOWN_FIRST)
 	{
@@ -319,23 +346,27 @@ void CGame::Update()
 		}
 	}
 
-	// PROCESSING THE WIND
-	for (auto &point : m_cloth->points)
+	// PROCESSING THE WIND OF FAN
+	if (fanActive)
 	{
-		// check if the point is inside the circle of wind projected by the fan
-
-		float d2 = (point.getPos().x - fan.getPos().x) * (point.getPos().x - fan.getPos().x) +
-			(point.getPos().y - fan.getPos().y) * (point.getPos().y - fan.getPos().y);
-
-		float r2 = (float)(5.0f * 5.0f);
-		if (d2 < r2)
+		for (auto &point : m_cloth->points)
 		{
-			//std::cout << "We are inside the fan range" << std::endl;
-			//point.addForce({ 0.0f, 0.0f, -1.0f });
+			// check if the point is inside the circle of wind projected by the fan
 
-			m_cloth->addWindForceForPoint(point.x, point.y, { 0.0f, 0.0f, -0.1f });
+			float d2 = (point.getPos().x - fan.getPos().x) * (point.getPos().x - fan.getPos().x) +
+				(point.getPos().y - fan.getPos().y) * (point.getPos().y - fan.getPos().y);
+
+			float r2 = (float)(5.0f * 5.0f);
+			if (d2 < r2)
+			{
+				//std::cout << "We are inside the fan range" << std::endl;
+				//point.addForce({ 0.0f, 0.0f, -1.0f });
+
+				m_cloth->addWindForceForPoint(point.x, point.y, { 0.0f, 0.0f, -0.1f });
+			}
 		}
 	}
+	
 
 
 
@@ -430,7 +461,7 @@ void CGame::Update()
 	//}
 
 	// check mouse picking on the fan
-	if (m_inputController.MouseState[0] == INPUT_DOWN_FIRST && UpdateMousePicking(&fan))
+	if (m_inputController.MouseState[0] == INPUT_DOWN_FIRST && UpdateMousePicking(&fan) && fanActive)
 	{
 		//std::cout << "OOH YOU TOUCHIE TOUCHIE" << std::endl;
 		fanBeingDragged = true;
@@ -507,6 +538,8 @@ float CGame::getDeltaTime()
 void CGame::ResetGame()
 {
 	m_camera.ResetCamera();
+	windSpeed = glm::vec3(0.0f, 0.0f, -0.1f);
+	fanActive = false;
 
 	delete m_cloth;
 

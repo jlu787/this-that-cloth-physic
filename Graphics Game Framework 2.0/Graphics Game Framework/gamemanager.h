@@ -136,8 +136,8 @@ private:
 	const int min_width = 1;
 	const int min_height = 1;
 
-	bool fanActive = false;
-	
+	bool fanActive = false; // if the fan is on turn global wind off
+	glm::vec3 windSpeed = glm::vec3(0.0f, 0.0f, -0.1f);
 	
 	// MOUSE PICKING
 	glm::vec3 rayDirection;
