@@ -1,9 +1,30 @@
-Cloth Physics Main Features - Jason and Lorenzo
-Press 1 to release cloth
-W A S D to move camera
-Press J or K to slide cloth in or out (Incomplete)
-Press R to restart the scene
-Press ESC to exit game properly
+ReadMe - Cloth Physics Final Submission
+by Guo Xin Lu and Lorenzo Zemp
 
-There is Wind and Gravity that is automatically enabled upon launch
-A ground is also implemented by not letting the cloth points fall below a certain point
+Camera Controls - W A S D to move camera
+
+Sphere Controls:
+8 - Move Sphere upwards
+4 - Move sphere left
+2 - Move Sphere downwards
+6 - Move sphere right
+7 - Move Sphere forwards
+9 - Move Sphere backwards
+(using NumberPad is recommended for this)
+
+Scene Controls:
+Reset Scene - R 
+Release Cloth from static Hinge - 1
+Slide Rings Inwards - J
+Slide Rings Outwards - K
+Toggle Tear-able - U 
+Add Points Vertically - O
+Add Points Horizontally - P
+Removing Points Vertically - L
+Removing Points Horizontally - ; (semicolon key)
+Toggling Fan Object - I
+Increase Windspeed - N 
+Reducing Windspeed - M
+Toggle Flammable - Z 
+
+Close Program - Esc

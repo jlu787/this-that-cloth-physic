@@ -318,7 +318,7 @@ void CGame::Update()
 		windSpeed += glm::vec3(0.0f,0.0f,0.1f);
 	}
 
-	// TOGGLING THE FAN ON AND OFF
+	// REDUCING WIND
 	if (m_inputController.KeyState['m'] == INPUT_DOWN_FIRST)
 	{
 		windSpeed -= glm::vec3(0.0f, 0.0f, 0.1f);
